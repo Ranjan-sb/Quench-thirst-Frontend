@@ -6,11 +6,13 @@ import Account from './components/pages/account';
 import PrivateRoute from './components/pages/privateRoute';
 import RoleBasedRedirect from './components/dashboard/roleBasedRedirect';
 import RegisterForm from './components/registrationAndLogin/registerForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
 //import VehicleTypeForm from './components/pages/vehicleTypeForm';
 import { useAuth } from './context/AuthContext';
 import Unauthorized from './components/pages/unauthorized';
 import OtpVerification from './components/registrationAndLogin/otpVerification';
 import ForgotPassword from './components/registrationAndLogin/forgotPassword';
+import SupplierDashboard from './components/dashboard/supplierDashboard';
 
 
 function App() {
@@ -55,6 +57,7 @@ function App() {
           <Route path="/register" element={<RegisterForm/>} />
           <Route path='/emailVerification' element={<OtpVerification />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/supplier-dashboard' element={<SupplierDashboard />} />
           <Route path="/account" element={
             <PrivateRoute permittedRoles={['admin', 'customer','supplier']}>
               <Account />
