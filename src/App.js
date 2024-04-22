@@ -10,6 +10,7 @@ import RegisterForm from './components/registrationAndLogin/registerForm';
 import { useAuth } from './context/AuthContext';
 import Unauthorized from './components/pages/unauthorized';
 import OtpVerification from './components/registrationAndLogin/otpVerification';
+import ForgotPassword from './components/registrationAndLogin/forgotPassword';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path='/login-success' element={<RoleBasedRedirect />} />
           <Route path="/register" element={<RegisterForm/>} />
           <Route path='/emailVerification' element={<OtpVerification />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path="/account" element={
             <PrivateRoute permittedRoles={['admin', 'customer','supplier']}>
               <Account />

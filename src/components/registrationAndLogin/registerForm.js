@@ -80,10 +80,8 @@ const RegisterForm = () => {
         try {
             const response = await axios.post('http://localhost:3100/api/users/register', formData);
             console.log(response.data);
+            localStorage.setItem('email', response.data.email)
             navigate('/emailVerification')
-            //setErrors("")
-            // Handle success, e.g., redirect to login page
-
         } catch (error) {
             console.error(error);
             //setErrors(error.response.data.errors)

@@ -28,6 +28,7 @@ export default function OtpVerification(){
         }
         try {
             const response = await axios.post("http://localhost:3100/api/users/reverifyEmail", emailData)
+            console.log(response.data)
             alert(response.data)
         } catch (err) {
             console.log(err)
