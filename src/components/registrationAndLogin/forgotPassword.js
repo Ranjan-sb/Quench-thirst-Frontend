@@ -15,11 +15,14 @@ export default function ForgotPassword() {
 
     const handleOTP = async (e) => {
         e.preventDefault()
+        const emailData = {
+            email: email
+        }
         if (email.length === 0) {
             formErrors.email = 'Email Required'
         } else {
             try {
-                const response = await axios.post('http://localhost:3100/api/users/reverifyEmail', { email })
+                const response = await axios.post('http://localhost:3100/api/users/reverifyEmail',emailData )
                 setServerErrors({})
                 setFormErrors({})
                 setIsActive(false)
@@ -40,8 +43,8 @@ export default function ForgotPassword() {
                     .matches(/^[0-9]{6}$/, 'Must be of 6 digits')
                     .required('Required'),
                 password: Yup.string()
-                    .min(8, 'password must be of at least 8 characters')
-                    .max(128, 'password must be less than 128 characters')
+                    // .min(8, 'password must be of at least 8 characters')
+                    // .max(128, 'password must be less than 128 characters')
                     .required('Required')
             })}
             onSubmit={async (values) => {
