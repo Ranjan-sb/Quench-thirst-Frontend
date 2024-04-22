@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode'; 
 import AdminDashboard from './adminDashboard';
-import SupplierDashboard from './supplierDashboard';
 import CustomerDashboard from './customerDashboard';
+import SupplierDetailsForm from './supplierDetailsForm';
 
 export default function RoleBasedRedirect(){
     const [userRole,setUserRole] = useState(null)
@@ -24,7 +24,7 @@ export default function RoleBasedRedirect(){
             case 'admin':
                 return <AdminDashboard />;
             case 'supplier':
-                return <SupplierDashboard />;
+                return <SupplierDetailsForm />;
             case 'customer':
                 return <CustomerDashboard />;
             default:
