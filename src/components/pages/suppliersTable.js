@@ -1,4 +1,6 @@
 import DataTable from 'react-data-table-component'
+
+//it is coming from admin dashboard
 export default function SuppliersTable({ suppliers, handleApprove, handleRemove, handleShow }) {
     const columns = [
         {
