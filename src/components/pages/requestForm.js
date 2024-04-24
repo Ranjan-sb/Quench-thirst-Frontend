@@ -81,23 +81,25 @@ export default function RequestForm() {
 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="vehicleTypeId">Vehicle Type Name</label>
+                    <label htmlFor="vehicleTypeId">Vehicle Type Name : </label>{" "}
                     <select
                         value={formData.vehicleTypeId}
                         onChange={handleChange}
-                        id='vehicleTypeId'>
-                        <option value=''>Select Vehicle Type</option>
-                        {vehicleTypes.data.map((ele) => {
-                            return (
-                                <option
-                                    key={ele._id}
-                                    value={ele._id}>{ele.name}</option>
-                            )
-                        })}
+                        name='vehicleTypeId'
+                        id='vehicleTypeId'
+                    >
+                    <option value=''>Select VehicleType</option>
+                    {vehicleTypes.data.map((ele) => {
+                        return (
+                            <option
+                                key={ele._id}
+                                value={ele._id}>{ele.name}</option>
+                        )
+                    })}
                     </select>
 
                     <div>
-                        <label>Order Type:</label>
+                        <label>Order Type : </label>{" "}
                         <label>
                             <input
                                 type="radio"
@@ -121,7 +123,7 @@ export default function RequestForm() {
                     </div>
 
                     <div>
-                        <label htmlFor="quantity">Quantity</label>
+                        <label htmlFor="quantity">Quantity : </label>{" "}
                         <input
                             type="text"
                             id="quantity"
@@ -132,7 +134,7 @@ export default function RequestForm() {
                     </div>
                     {formData.orderType === 'immediate' ? (
                         <div>
-                            <label>Order Date (Immediate):</label>
+                            <label>Order Date (Immediate) : </label>{" "}
                             <input
                                 type="text"
                                 value={formData.orderDate}
@@ -141,7 +143,7 @@ export default function RequestForm() {
                         </div>
                     ) : (
                         <div>
-                            <label htmlFor="orderDate">Order Date (Advance):</label>
+                            <label htmlFor="orderDate">Order Date (Advance) : </label>{" "}
                             <input
                                 type="date"
                                 id="orderDate"
@@ -152,7 +154,7 @@ export default function RequestForm() {
                         </div>
                     )}
 
-                    <label htmlFor="purpose">Purpose</label>
+                    <label htmlFor="purpose">Purpose : </label>{" "}
                     <select
                         id="purpose"
                         name="purpose"
@@ -160,14 +162,18 @@ export default function RequestForm() {
                         onChange={handleChange}
                     >
                         <option value="">Select Purpose</option>
-                        {vehicleTypes.data.map((ele) =>
+                        <option value="domestic">Domestic</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="construction">Construction</option>
+                        <option value="priority">Priority</option>
+                        {/* {vehicleTypes.data.map((ele) =>
                             ele.prices.map((type) => (
                                 <option key={type._id} value={type.purpose}>
                                     {type.purpose}
                                 </option>
                             ))
-                        )}
-                    </select>
+                        )} */}
+                    </select><br />
                     <button type="submit">Submit</button>
                 </div>
             </form>
