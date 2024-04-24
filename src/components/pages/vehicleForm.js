@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { VehicleTypeContext } from '../../context/VehicleTypeContext';
 
 export default function VehicleForm() {
-    const [vehicleType, setVehicleType] = useState([]);
+    const { vehicleTypes } = useContext(VehicleTypeContext)
     const navigate = useNavigate();
 
     const initialValues = {
@@ -20,22 +21,6 @@ export default function VehicleForm() {
         vehicleTypeId: Yup.string()
             .required('Vehicle type is required')
     });
-
-    useEffect(() => {
-        const fetchVehicleTypes = async () => {
-            try {
-                const response = await axios.get('http://localhost:3100/api/vehicleType', {
-                    headers: {
-                        Authorization: localStorage.getItem('token')
-                    }
-                });
-                setVehicleType(response.data);
-            } catch (error) {
-                console.error('Error fetching vehicle types:', error);
-            }
-        };
-        fetchVehicleTypes();
-    }, []);
 
     return (
         <div>
@@ -64,7 +49,7 @@ export default function VehicleForm() {
                             <label htmlFor="vehicleType">Vehicle Type</label>
                             <Field as="select" name="vehicleTypeId">
                                 <option value="">Select Vehicle Type</option>
-                                {vehicleType.map((type) => (
+                                {vehicleTypes.data.map((type) => (
                                     <option key={type._id} value={type._id}>{type.name}</option>
                                 ))}
                             </Field>
