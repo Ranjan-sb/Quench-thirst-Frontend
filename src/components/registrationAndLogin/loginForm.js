@@ -9,7 +9,7 @@ import { Button, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
 
 
 
-export default function LoginForm() {
+export default function LoginForm(props) {
     const [serverErrors, setFormErrors] = useState([])
     const navigate = useNavigate()
     const { handleLogin} = useAuth() 
@@ -34,6 +34,7 @@ export default function LoginForm() {
                     Authorization: localStorage.getItem('token')
                 }
             })
+            props.setLogin()
             handleLogin(userResponse.data)
             navigate('/login-success')
             setFormErrors("")
