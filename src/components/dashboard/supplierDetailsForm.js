@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
+//import VehicleForm from '../pages/vehicleForm';
 
 export default function SupplierDetailsForm() {
   const [serverErrors, setServerErrors] = useState([]);
