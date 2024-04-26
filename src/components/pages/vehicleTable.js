@@ -5,7 +5,10 @@ import DataTable from 'react-data-table-component'
 
 export default function VehicleTable() {
     const [vehicles, setVehicles] = useState([])
-    const [vehicleTypesData, setVehicleTypesData] = useState([]);
+    //const [vehicleTypesData, setVehicleTypesData] = useState([]);
+    //const [loading, setLoading] = useState(true);
+    //const [error, setError] = useState(null);
+
     const { vehicleTypes } = useContext(VehicleTypeContext)
 
     useEffect(() => {
@@ -18,17 +21,30 @@ export default function VehicleTable() {
                 })
                 setVehicles(vehicles.data)
             } catch (error) {
+                
                 console.log(error)
             }
-
-            // Extract and store vehicle types data separately
-            if (vehicleTypes.data) {
-                setVehicleTypesData(vehicleTypes.data);
-        }
         })()
-    }, [vehicleTypes.data])
+    }, [])
 
-    //const isDataAvailable = vehicleTypes.data && vehicleTypes.data.length > 0;
+    // useEffect(()=>{
+    //     (async()=>{
+    //         try{
+    //             const response = await axios.get('http://localhost:3100/api/vehicleType',{
+    //                 headers : {
+    //                     Authorization : localStorage.getItem('token')
+    //                 }
+    //             })
+    //             console.log(response.data)
+    //             setVehicleTypesData(response.data)
+    //         }catch(error){
+    //             setError('Error fetching vehicle Types');
+    //             console.log(error)
+    //         }finally {
+    //             setLoading(false);
+    //         }
+    //     })()
+    // },[])
 
     const columns = [
         {
@@ -38,9 +54,9 @@ export default function VehicleTable() {
         },
         {
             name: 'Vehicle Type Name',
-            selector: row => {
-                const vehicleType = vehicleTypes.data.find(type => type._id === row.vehicleTypeId)
-                console.log(vehicleType)
+            selector : row => 
+            {
+                const vehicleType = vehicleTypes.data.find(type => type._id === row.vehicleTypeId);
                 return vehicleType ? vehicleType.name : 'Unknown';
             },
             sortable: true,

@@ -78,7 +78,7 @@ export default function AdminDashboard(){
                 {suppliers.filter((ele)=>{
                     return ele._id === id
                 }).map((supplierDetails)=>{
-                    return<div>
+                    return<div key={supplierDetails._id}>
                             <p><b>Name : </b> {supplierDetails.userId.username}</p>
                             <p><b>Email : </b> {supplierDetails.userId.email}</p>
                             <p><b>License Number : </b> {supplierDetails.licenseNumber}</p>
