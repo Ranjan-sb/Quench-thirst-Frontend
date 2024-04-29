@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setServerErrors } from "../../actions/request-action"
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startAcceptRequest } from "../../actions/request-action";
-//import { startGetMyRequests } from "../../actions/request-action"; 
 
 export default function HandleRequests() {
     const requests = useSelector((state) => {
@@ -34,7 +33,10 @@ export default function HandleRequests() {
     return (
         <>
             <h3>Request Details</h3>
-            <table className="table">
+            {requests.data.length === 0 ? (
+                <p><b>THERE IS NO REQUEST DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
+            ):(
+                <table className="table">
                 <thead>
                     <tr>
                         {/* <th>vehicleTypeId</th> */}
@@ -72,7 +74,8 @@ export default function HandleRequests() {
                     })}
                 </tbody>
             </table>
-
+            )}
+            
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Request</ModalHeader>
                 <ModalBody>
@@ -94,15 +97,9 @@ export default function HandleRequests() {
                                 </div>
                             })}
                         </>}
-
                     </ul>
                 </ModalBody>
-                <ModalFooter>
-
-                </ModalFooter>
             </Modal>
         </>
     )
-
-
 }

@@ -195,26 +195,3 @@ export default function VehicleTypeForm(){
         </div>
     );
 }
-
-
-// {formikProps.values.prices.map((price, index) => (
-    // <div key={index}>
-        // <label htmlFor={`prices.${index}.purpose`}>Purpose:</label><br />
-        // {/* <Field type="text" id={`prices.${index}.purpose`} name={`prices.${index}.purpose`} /> */}
-        // <Field
-            // as="select"
-            // name={`prices[${index}].purpose`}
-            // className='form-control'    
-        // >
-        //     <option value=''>Select Purpose</option>
-        //     <option value="domestic">Domestic</option>
-        //     <option value="commercial">Commercial</option>
-        //     <option value="construction">Construction</option>
-        //     <option value="priority">Priority</option>
-        // </Field>
-        // <ErrorMessage name={`prices.${index}.purpose`} component="div" className="error-message" /><br />
-        // <label htmlFor={`prices.${index}.price`}>Price:</label><br />
-        // <Field type="number" id={`prices.${index}.price`} name={`prices.${index}.price`} />
-        // <ErrorMessage name={`prices.${index}.price`} component="div" className="error-message" />
-//     </div>
-// ))}

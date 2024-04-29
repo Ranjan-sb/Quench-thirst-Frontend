@@ -37,7 +37,6 @@ export default function SuppliersTable({ suppliers, handleApprove, handleRemove,
                     <button onClick={() => handleShow(row._id)}>Show</button>
                 )
             )
-            
         }
     ]
     return (

@@ -28,7 +28,10 @@ export default function OrdersListForSupplier() {
     return (
         <>
             <h3>Orders Details</h3>
-            <table className="table">
+            {orders.data.length === 0 ? (
+                <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
+            ):(
+                <table className="table">
                 <thead>
                     <tr>
                         {/* <th>vehicleTypeId</th> */}
@@ -65,35 +68,34 @@ export default function OrdersListForSupplier() {
                 </tbody>
             </table>
 
+            )}
+            
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
-                    {/* <ul>
-                        {id && <>
-                            {orders.data.filter((ele) => {
-                                return ele._id === id
-                            }).map((orderDetails) => {
-                                return <div key={orderDetails._id}>
-                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
-                                    <p><b>OrderType : </b> {requestDetails.orderType}</p>
-                                    <p><b>Order Date : </b> {requestDetails.orderDate}</p>
-                                    <p><b>Quantity : </b> {requestDetails.quantity}</p>
-                                    <p><b>Purpose : </b> {requestDetails.purpose}</p>
-                                    <p><b>Address : </b> {requestDetails.customerAddress}</p>
+                {orders.data.map((ele) => {
+                        if (ele._id === id) {
+                            return (
+                                <div key={ele._id}>
+                                    <p><b>Status:</b> {ele.status}</p>
+                                    <p><b>Order Date:</b> {ele.orderDate}</p>
+                                    <p><b>Supplier ID:</b> {ele.supplierId}</p>
+                                    <p><b>Customer ID:</b> {ele.customerId}</p>
+                                    {ele.lineItems.map((item, index) => (
+                                        <div key={index}>
+                                            <p><b>Quantity:</b> {item.quantity}</p>
+                                            <p><b>Purpose:</b> {item.purpose}</p>
+                                            <p><b>Order Type:</b> {item.orderType}</p>
+                                        </div>
+                                    ))}
+                                    <p><b>Price:</b> {ele.price}</p>
                                 </div>
-                            })}
-                        </>}
-
-                    </ul> */}
+                            );
+                        }
+                        return null;
+                    })}
                 </ModalBody>
-                {/* <ModalFooter>
-                    <Button color="primary" onClick={toggle}>
-                        Accept
-                    </Button>{' '}
-                </ModalFooter> */}
             </Modal>
         </>
     )
-
-
 }
