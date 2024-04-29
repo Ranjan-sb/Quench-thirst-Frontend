@@ -19,6 +19,8 @@ import { VehicleTypeContext } from './context/VehicleTypeContext';
 import { startGetRequests,startGetMyRequests } from './actions/request-action';
 import { startGetCustomerOrders,startGetSupplierOrders } from './actions/orders-action';
 import { useDispatch } from 'react-redux';
+import Success from './components/pages/success';
+import Failure from './components/pages/failure';
 
 
 function App() {
@@ -111,6 +113,8 @@ function App() {
           <Route path='/price-details' element={<ShowPriceDetails />} />
           <Route path='/vehicle-type' element={<VehicleTypeForm />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/success" element={<Success />} />
+          <Route path='/failure' element={<Failure />} />
         </Routes>
       </div>
     </VehicleTypeContext.Provider>
