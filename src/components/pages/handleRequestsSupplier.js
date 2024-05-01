@@ -29,53 +29,55 @@ export default function HandleRequests() {
         dispatch(startAcceptRequest(id))
         toggle()
     }
-
     return (
         <>
             <h3>Request Details</h3>
             {requests.data.length === 0 ? (
                 <p><b>THERE IS NO REQUEST DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
-            ):(
+            ) : (
                 <table className="table">
-                <thead>
-                    <tr>
-                        {/* <th>vehicleTypeId</th> */}
-                        <th>orderType</th>
-                        <th>orderDate</th>
-                        <th>Quantity</th>
-                        <th>Purpose</th>
-                        {/* <th>CustomerAddress</th> */}
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {requests.data.map((ele) => {
-                        return (
-                            <tr key={ele._id}>
-                                {/* <td>{ ele.vehicleTypeId }</td> */}
-                                <td>{ele.orderType}</td>
-                                <td>{ele.orderDate}</td>
-                                <td>{ele.quantity}</td>
-                                <td>{ele.purpose}</td>
-                                {/* <td>{ ele.customerAddress }</td> */}
-                                <td><button onClick={() => {
-                                    setId(ele._id)
-                                    toggle()
-                                }}>show</button>
-                                    {/* <button onClick={() => {
+                    <thead>
+                        <tr>
+                            <th>vehicleType</th>
+                            <th>orderType</th>
+                            <th>orderDate</th>
+                            <th>Quantity</th>
+                            <th>Purpose</th>
+                            {/* <th>CustomerAddress</th> */}
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {requests.data.filter((request) => { return request.status === 'pending' }).length === 0 ?
+                            <p><br /><b>No Request data to display</b></p> :
+                            requests.data.filter((request) => { return request.status === 'pending' }).map((ele) => {
+                                const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
+                                return (
+                                    <tr key={ele._id}>
+                                        <td>{ ele.vehicleTypeId?.name }</td>
+                                        <td>{ele.orderType}</td>
+                                        <td>{formattedDate}</td>
+                                        <td>{ele.quantity}</td>
+                                        <td>{ele.purpose}</td>
+                                        {/* <td>{ ele.customerAddress }</td> */}
+                                        <td><button onClick={() => {
+                                            setId(ele._id)
+                                            toggle()
+                                        }}>show</button>
+                                            {/* <button onClick={() => {
                                             handleEdit(ele._id)
                                         }}>edit</button> */}
-                                    {/* <button onClick={() => {
+                                            {/* <button onClick={() => {
                                             handleRemove(ele._id)
                                         }}>remove</button> */}
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                    </tbody>
+                </table>
             )}
-            
+
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Request</ModalHeader>
                 <ModalBody>
@@ -84,10 +86,11 @@ export default function HandleRequests() {
                             {requests.data.filter((ele) => {
                                 return ele._id === id
                             }).map((requestDetails) => {
+                                const formattedDate = new Date(requestDetails.orderDate).toISOString().split('T')[0];
                                 return <div key={requestDetails._id}>
-                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
+                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId?.name}</p>
                                     <p><b>OrderType : </b> {requestDetails.orderType}</p>
-                                    <p><b>Order Date : </b> {requestDetails.orderDate}</p>
+                                    <p><b>Order Date : </b> {formattedDate}</p>
                                     <p><b>Quantity : </b> {requestDetails.quantity}</p>
                                     <p><b>Purpose : </b> {requestDetails.purpose}</p>
                                     <p><b>Address : </b> {requestDetails.customerAddress}</p><br />

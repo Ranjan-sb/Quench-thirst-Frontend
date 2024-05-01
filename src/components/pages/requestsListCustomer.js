@@ -139,13 +139,13 @@ export default function RequestListForCustomer() {
     return (
         <>
             <h3>Request Details</h3>
-            {requests.data.length === 0 ? (
+            {requests.data.length === 0  ? (
                 <p><b>THERE IS NO REQUEST DATA FOR THIS CUSTOMER TO DISPLAY</b></p>
             ) : (
                 <table className="table">
                     <thead>
                         <tr>
-                            {/* <th>vehicleTypeId</th> */}
+                            <th>vehicleType</th>
                             <th>orderType</th>
                             <th>orderDate</th>
                             <th>Quantity</th>
@@ -155,12 +155,15 @@ export default function RequestListForCustomer() {
                         </tr>
                     </thead>
                     <tbody>
-                        {requests.data.map((ele) => {
+                        {requests.data.filter((request)=>{return request.status==='pending'}).length === 0?
+                        <p><br /><b>No Request data to display</b></p>:
+                        requests.data.filter((request)=>{return request.status==='pending'}).map((ele) => {
+                            const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
                             return (
                                 <tr key={ele._id}>
-                                    {/* <td>{ ele.vehicleTypeId }</td> */}
+                                    <td>{ ele.vehicleTypeId?.name }</td>
                                     <td>{ele.orderType}</td>
-                                    <td>{ele.orderDate}</td>
+                                    <td>{formattedDate}</td>
                                     <td>{ele.quantity}</td>
                                     <td>{ele.purpose}</td>
                                     {/* <td>{ ele.customerAddress }</td> */}
@@ -190,10 +193,11 @@ export default function RequestListForCustomer() {
                                 {requests.data
                                     .filter((ele) => ele._id === id)
                                     .map((requestDetails) => (
+                                        
                                         <div key={requestDetails._id}>
-                                            <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
+                                            <p><b>VehicleType : </b> {requestDetails.vehicleTypeId?.name}</p>
                                             <p><b>OrderType : </b> {requestDetails.orderType}</p>
-                                            <p><b>Order Date : </b> {requestDetails.orderDate}</p>
+                                            <p><b>Order Date : </b> {new Date(requestDetails.orderDate).toISOString().split('T')[0]}</p>
                                             <p><b>Quantity : </b> {requestDetails.quantity}</p>
                                             <p><b>Purpose : </b> {requestDetails.purpose}</p>
                                             <p><b>Address : </b> {requestDetails.customerAddress}</p>

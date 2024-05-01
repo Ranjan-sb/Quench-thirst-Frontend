@@ -56,7 +56,6 @@ export default function OrdersListForCustomer() {
                 <table className="table">
                     <thead>
                         <tr>
-                            {/* <th>vehicleTypeId</th> */}
                             <th>orderDate</th>
                             <th>Quantity</th>
                             <th>Purpose</th>
@@ -67,9 +66,10 @@ export default function OrdersListForCustomer() {
                     </thead>
                     <tbody>
                         {orders.data.map((ele) => {
+                            const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
                             return (
                                 <tr key={ele._id}>
-                                    <td>{ele.orderDate}</td>
+                                    <td>{formattedDate}</td>
                                     {ele.lineItems.map((item, index) => (
                                         <React.Fragment key={index}>
                                             <td>{item.quantity}</td>
@@ -100,18 +100,20 @@ export default function OrdersListForCustomer() {
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
                     {orders.data.map((ele) => {
+                        const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
                         if (ele._id === id) {
                             return (
                                 <div key={ele._id}>
-                                    <p><b>Status:</b> {ele.status}</p>
-                                    <p><b>Order Date:</b> {ele.orderDate}</p>
-                                    <p><b>Supplier ID:</b> {ele.supplierId}</p>
-                                    <p><b>Customer ID:</b> {ele.customerId}</p>
+                                    <p><b>Status : </b> {ele.status}</p>
+                                    <p><b>Order Date : </b> {formattedDate}</p>
+                                    <p><b>Supplier Name : </b> {ele.supplierId?.username}</p>
+                                    <p><b>Customer Name:</b> {ele.customerId?.username}</p>
                                     {ele.lineItems.map((item, index) => (
                                         <div key={index}>
                                             <p><b>Quantity:</b> {item.quantity}</p>
                                             <p><b>Purpose:</b> {item.purpose}</p>
-                                            <p><b>Order Type:</b> {item.orderType}</p>
+                                            <p><b>Order Type : </b> {item.orderType}</p>
+                                            <p><b>VehicleType : </b>{item.vehicleTypeId?.name}</p>
                                         </div>
                                     ))}
                                     <p><b>Price:</b> {ele.price}</p>
