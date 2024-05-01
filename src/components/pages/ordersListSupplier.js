@@ -68,23 +68,24 @@ export default function OrdersListForSupplier() {
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
-                    {/* <ul>
+                    <ul>
                         {id && <>
                             {orders.data.filter((ele) => {
                                 return ele._id === id
                             }).map((orderDetails) => {
                                 return <div key={orderDetails._id}>
-                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
-                                    <p><b>OrderType : </b> {requestDetails.orderType}</p>
-                                    <p><b>Order Date : </b> {requestDetails.orderDate}</p>
-                                    <p><b>Quantity : </b> {requestDetails.quantity}</p>
-                                    <p><b>Purpose : </b> {requestDetails.purpose}</p>
-                                    <p><b>Address : </b> {requestDetails.customerAddress}</p>
-                                </div>
+                                    {console.log(orderDetails)}
+                                <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId)}</p>
+                                <p><b>OrderType : </b> {orderDetails.lineItems.map(item=>item.orderType)}</p>
+                                <p><b>Order Date : </b> {orderDetails.orderDate}</p>
+                                <p><b>Quantity : </b> {orderDetails.lineItems.map(item=>item.quantity)}</p>
+                                <p><b>Purpose : </b> {orderDetails.lineItems.map(item=>item.purpose)}</p>
+                                <p><b>Address : </b> {orderDetails?.customerId?.building} , {orderDetails?.customerId?.locality}, {orderDetails.customerId.state}, {orderDetails.customerId.pinCode}, {orderDetails.customerId.country}</p>
+                            </div>
                             })}
                         </>}
 
-                    </ul> */}
+                    </ul>
                 </ModalBody>
                 {/* <ModalFooter>
                     <Button color="primary" onClick={toggle}>

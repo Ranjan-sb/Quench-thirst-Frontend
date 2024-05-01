@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux"
 import { setServerErrors } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+// import { VehicleTypeContext } from "../../context/VehicleTypeContext";
 
 
 export default function OrdersListForCustomer() {
@@ -9,9 +11,10 @@ export default function OrdersListForCustomer() {
         return state.orders
     })
 
-    const dispatch = useDispatch()
-
+    const dispatch = useDispatch()    
+    
     useEffect(() => {
+        
         return () => {
             dispatch(setServerErrors([]))
         }
@@ -19,11 +22,22 @@ export default function OrdersListForCustomer() {
 
     const [id, setId] = useState('')
     const [modal, setModal] = useState(false);
+    const [vehicleTypeId,setVehicleTypeId]=useState('')
+    
+    const [show,setShow] = useState(false)
 
     const toggle = () => {
         setModal(!modal)
+        setShow(!show)
         dispatch(setServerErrors([]))
     }
+    console.log(vehicleTypeId)
+        
+
+    const getName=(id)=>{
+        setVehicleTypeId(id)
+        setShow(!show)
+    }    
 
     return (
         <>
@@ -41,6 +55,7 @@ export default function OrdersListForCustomer() {
                     </tr>
                 </thead>
                 <tbody>
+                    {console.log('order',orders)}
                     {orders.data.map((ele) => {
                         return (
                             <tr key={ele._id}>
@@ -71,23 +86,30 @@ export default function OrdersListForCustomer() {
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
-                    {/* <ul>
+                    <ul>
                         {id && <>
                             {orders.data.filter((ele) => {
                                 return ele._id === id
                             }).map((orderDetails) => {
+                                
+                                console.log("orderDetails:", orderDetails)
+                                
+                                    if(show){
+                                        getName(orderDetails.lineItems[0].vehicleTypeId)
+                                    }
+                               
                                 return <div key={orderDetails._id}>
-                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
-                                    <p><b>OrderType : </b> {requestDetails.orderType}</p>
-                                    <p><b>Order Date : </b> {requestDetails.orderDate}</p>
-                                    <p><b>Quantity : </b> {requestDetails.quantity}</p>
-                                    <p><b>Purpose : </b> {requestDetails.purpose}</p>
-                                    <p><b>Address : </b> {requestDetails.customerAddress}</p>
+                                    <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId?.name)}</p>
+                                    <p><b>OrderType : </b> {orderDetails.lineItems.map(item=>item.orderType)}</p>
+                                    <p><b>Order Date : </b> {orderDetails.orderDate}</p>
+                                    <p><b>Quantity : </b> {orderDetails.lineItems.map(item=>item.quantity)}</p>
+                                    <p><b>Purpose : </b> {orderDetails.lineItems.map(item=>item.purpose)}</p>
+                                    <p><b>Address : </b> {orderDetails?.customerId.building} , {orderDetails.customerId.locality}, {orderDetails.customerId.state}, {orderDetails.customerId.pinCode}, {orderDetails.customerId.country}</p>
                                 </div>
                             })}
                         </>}
 
-                    </ul> */}
+                    </ul>
                 </ModalBody>
                 {/* <ModalFooter>
                     <Button color="primary" onClick={toggle}>

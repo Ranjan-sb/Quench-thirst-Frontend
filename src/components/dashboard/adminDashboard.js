@@ -21,7 +21,7 @@ export default function AdminDashboard(){
                     Authorization : localStorage.getItem('token')
                 }
             })
-            console.log(response.data)
+            console.log("suppliers_list-", response.data)
             setSuppliers(response.data)
         })()
     },[])

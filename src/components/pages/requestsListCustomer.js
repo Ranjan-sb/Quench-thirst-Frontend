@@ -81,7 +81,7 @@ export default function RequestListForCustomer() {
                                 return ele._id === id
                             }).map((requestDetails) => {
                                 return <div key={requestDetails._id}>
-                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId}</p>
+                                    <p><b>VehicleType : </b> {requestDetails.vehicleTypeId?.name}</p>
                                     <p><b>OrderType : </b> {requestDetails.orderType}</p>
                                     <p><b>Order Date : </b> {requestDetails.orderDate}</p>
                                     <p><b>Quantity : </b> {requestDetails.quantity}</p>

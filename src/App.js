@@ -15,7 +15,9 @@ import ForgotPassword from './components/registrationAndLogin/forgotPassword';
 import SupplierDashboard from './components/dashboard/supplierDashboard';
 import ShowPriceDetails from './components/pages/showPriceDetails';
 import vehicleTypeReducer from './reducers/vehicleTypeReducer';
+
 import { VehicleTypeContext } from './context/VehicleTypeContext';
+
 import { startGetRequests,startGetMyRequests } from './actions/request-action';
 import { startGetCustomerOrders,startGetSupplierOrders } from './actions/orders-action';
 import { useDispatch } from 'react-redux';
@@ -25,6 +27,8 @@ function App() {
   const dispatch = useDispatch()
   const {  handleLogin, handleLogout } = useAuth()
   const [vehicleTypes, vehicleTypeDispatch]=useReducer(vehicleTypeReducer,{data:[], serverErrors:[]})
+  
+  
   const [login, setLogin]=useState(false)
 
   const handleSetLogin=()=>{
@@ -48,10 +52,11 @@ function App() {
           dispatch(startGetMyRequests());
           dispatch(startGetSupplierOrders());
         }
-      })()
+      })();
     }
   }, [])
 
+  
   useEffect(()=>{
     if(localStorage.getItem('token')){
       const fetchVehicleTypes= async()=>{
@@ -61,7 +66,7 @@ function App() {
               Authorization: localStorage.getItem('token')
             }
           })
-          console.log(response.data)
+          console.log("vehicleTypes-",response.data)
           vehicleTypeDispatch({type:'SET_VEHICLE_TYPE', payload:response.data})
         }catch(err){
           console.log(err)
@@ -71,6 +76,7 @@ function App() {
     }
   },[handleLogin])
 
+  
 
   return (
 
@@ -85,6 +91,7 @@ function App() {
           </>
         ) : (
           <>
+
             <Link to="/account">Account</Link> |
             <Link to="/price-details" >Price Details</Link>|
             <Link to="/" onClick={() => {
