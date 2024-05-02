@@ -92,7 +92,6 @@ export default function AdminDashboard(){
                     }
                 </ModalBody>
             </Modal>
-            <VehicleTypeForm />
         </div>
     )
 }

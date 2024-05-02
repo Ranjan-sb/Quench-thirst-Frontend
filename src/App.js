@@ -27,6 +27,7 @@ import OrdersListForCustomer from './components/pages/ordersListCustomer';
 import HandleRequests from './components/pages/handleRequestsSupplier';
 import OrdersListForSupplier from './components/pages/ordersListSupplier';
 import CustomerDashboard from './components/dashboard/customerDashboard';
+import AdminDashboard from './components/dashboard/adminDashboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,6 +91,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/supplier-dashboard" element={<SupplierDashboard />} />
           <Route path='/customer-dashboard' element={<CustomerDashboard />} />
+          <Route path="/add-vehicleType" element={<VehicleTypeForm />} />
+          <Route path='/admin-dashboard' element={<AdminDashboard />} />
           <Route
             path="/account"
             element={

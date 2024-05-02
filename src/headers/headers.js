@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -23,18 +23,24 @@ const Header = ({ handleLogout, isAuthenticated }) => {
                         <>
                             <Nav.Link as={Link} to="/account">Account</Nav.Link>
                             <Nav.Link as={Link} to="/price-details">Price Details</Nav.Link>
+                            {user?.role === 'admin' && (
+                                <>
+                                    <Nav.Link as={Link} to="/add-vehicleType">AddVehicleType</Nav.Link>
+                                    <Nav.Link as={Link} to="/admin-dashboard">Home</Nav.Link>
+                                </>
+                            )}
                             {user?.role === 'customer' && (
                                 <>
                                     <Nav.Link as={Link} to="/customer-requests">Requests Details</Nav.Link>
                                     <Nav.Link as={Link} to="/customer-orders">Orders Details</Nav.Link>
-                                    <Nav.Link as={Link} to="/customer-dashboard">BackToHome</Nav.Link>
+                                    <Nav.Link as={Link} to="/customer-dashboard">Home</Nav.Link>
                                 </>
                             )}
                             {user?.role === 'supplier' && (
                                 <>
                                     <Nav.Link as={Link} to="/supplier-requests">Requests</Nav.Link>
                                     <Nav.Link as={Link} to="/supplier-orders">Orders</Nav.Link>
-                                    <Nav.Link as={Link} to='/supplier-dashboard'>BackToHome</Nav.Link>
+                                    <Nav.Link as={Link} to='/supplier-dashboard'>Home</Nav.Link>
                                 </>
                             )}
                             {/* <Nav.Link as={Link} to='/' onClick={()=>{

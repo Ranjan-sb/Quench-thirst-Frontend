@@ -21,17 +21,6 @@ export default function VehicleTypeForm(){
         ]
     };
 
-    const validationSchema = Yup.object().shape({
-        name: Yup.string().required('Name is required'),
-        capacity: Yup.string().required('Capacity is required'),
-        prices: Yup.array().of(
-            Yup.object().shape({
-                purpose: Yup.string().required('Purpose is required'),
-                price: Yup.number().required('Price is required').positive('Price must be a positive number')
-            })
-        )
-    });
-
     const handleSubmit = async (values, {resetForm}) => {
         try {
             const response = await axios.post('http://localhost:3100/api/vehicleType', values,{
@@ -41,10 +30,8 @@ export default function VehicleTypeForm(){
             });
             console.log(response.data);
             resetForm()
-            // Handle success
         } catch (error) {
             console.error(error);
-            // Handle error
         }
     };
 
