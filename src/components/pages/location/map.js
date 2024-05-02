@@ -6,6 +6,7 @@ import { useAuth } from '../../../context/AuthContext'
 import { MapLocationContext } from '../../../context/MapContext'
 import { Icon } from 'leaflet'
 import pin from '../../../img/pin.png'
+import user from '../../../img/user.png'
 
 
 export default function Map(){
@@ -21,6 +22,11 @@ export default function Map(){
     iconUrl: pin,
     iconSize: [38, 38]
 })
+
+  const userMarker=new Icon({
+    iconUrl:user,
+    iconSize: [38, 38]
+  })
   
   function reverseLatLon(arr) {
     return [arr[1], arr[0]]
@@ -52,7 +58,7 @@ export default function Map(){
                     />
 
                     {/* Circle representing the radius */}
-                    <Circle center={center} radius={10 * 1000} />
+                    <Circle center={center} radius={100 * 1000} />
 
                     {/* Display nearby services as markers */}
                     {mapLocations.data.map((ele, index) => (
@@ -63,7 +69,7 @@ export default function Map(){
                             {/* <Popup><Link to={`/spaceBookingPage/${space._id}`}>{space.title}</Link></Popup> */}
                         </Marker>
                     ))}
-                   <Marker position={center} >
+                   <Marker position={center} icon={userMarker} >
                       <Popup>You are here</Popup>
                    </Marker>
                 </MapContainer>
