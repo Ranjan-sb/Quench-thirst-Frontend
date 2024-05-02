@@ -7,6 +7,7 @@ export default function Failure(){
                 try{
                     const stripeId = localStorage.getItem('stripeId')
                     const payment = await axios.put(`http://localhost:3100/api/payments/${stripeId}/failed`,{paymentStatus:"Failed"})
+                    alert('Payment Failed')
                 }catch(err){
                     console.log(err)
                 }
