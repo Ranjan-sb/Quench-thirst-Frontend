@@ -3,7 +3,6 @@ import axios from "axios"
 import VehicleForm from "../pages/vehicleForm";
 import SupplierDetailsForm from "./supplierDetailsForm";
 
-
 export default function SupplierDashboard(){
     const [supplierData,setSupplierData] = useState([])
     const [loading, setLoading] = useState(true);
@@ -36,7 +35,6 @@ export default function SupplierDashboard(){
             ) : (
                 <SupplierDetailsForm />
             )}
-            
         </div>
     )
 }

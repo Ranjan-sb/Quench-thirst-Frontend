@@ -12,6 +12,7 @@ export default function OrdersListForCustomer() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        
         return () => {
             dispatch(setServerErrors([]));
         };
@@ -19,6 +20,9 @@ export default function OrdersListForCustomer() {
 
     const [id, setId] = useState('');
     const [modal, setModal] = useState(false);
+    const [vehicleTypeId,setVehicleTypeId]=useState('')
+    
+    const [show,setShow] = useState(false)
 
     const toggle = () => {
         setModal(!modal);
@@ -30,8 +34,6 @@ export default function OrdersListForCustomer() {
             const body = {
                 amount:order.amount
             }
-
-        //alert(order._id)
             
         const response = await axios.post(`http://localhost:3100/api/create-checkout-session?orderId=${order._id}`,body)
         
@@ -45,6 +47,13 @@ export default function OrdersListForCustomer() {
             console.log(err)
         }
     }
+    console.log(vehicleTypeId)
+        
+
+    const getName=(id)=>{
+        setVehicleTypeId(id)
+        setShow(!show)
+    }    
 
 
     return (
@@ -95,7 +104,6 @@ export default function OrdersListForCustomer() {
                     </tbody>
                 </table>
             )}
-
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>

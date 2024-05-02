@@ -73,37 +73,14 @@ export default function OrdersListForSupplier() {
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
-                {/* {orders.data.map((ele) => {
-                    const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
-                        if (ele._id === id) {
-                            return (
-                                <div key={ele._id}>
-                                    <p><b>Status : </b> {ele.status}</p>
-                                    <p><b>Order Date : </b> {formattedDate}</p>
-                                    <p><b>Supplier Name : </b> {ele.supplierId?.username}</p>
-                                    <p><b>Customer Name : </b> {ele.customerId?.username}</p>
-                                    {ele.lineItems.map((item, index) => (
-                                        <div key={index}>
-                                            <p><b>Quantity:</b> {item.quantity}</p>
-                                            <p><b>Purpose:</b> {item.purpose}</p>
-                                            <p><b>Order Type:</b> {item.orderType}</p>
-                                        </div>
-                                    ))}
-                                    <p><b>Price:</b> {ele.price}</p>
-                                </div>
-                            );
-                        }
-                        return null;
-                    })} */}
                     <ul>
                         {id && <>
                             {orders.data.filter((ele) => {
-                                
                                 return ele._id === id
                             }).map((orderDetails) => {
                                 const formattedDate = new Date(orderDetails.orderDate).toISOString().split('T')[0];
                                 return <div key={orderDetails._id}>
-                                    
+                
                                     {console.log(orderDetails)}
                                 <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId?.name)}</p>
                                 <p><b>OrderType : </b> {orderDetails.lineItems.map(item=>item.orderType)}</p>

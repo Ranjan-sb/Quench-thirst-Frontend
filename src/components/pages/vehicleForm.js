@@ -7,7 +7,6 @@ import axios from 'axios';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
 import VehicleTable from './vehicleTable';
 
-
 export default function VehicleForm() {
     const { vehicleTypes } = useContext(VehicleTypeContext)
     const navigate = useNavigate();
