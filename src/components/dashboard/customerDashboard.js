@@ -36,12 +36,9 @@ export default function CustomerDashboard(){
             <h3>Customer Dashboard</h3>
             <MapLocationContext.Provider value={{mapLocations, mapLocationDispatch}}>
                 <>
-                <Map />
+                <Map /><br />
                 <RequestForm />
-                <RequestListForCustomer />
-                <OrdersListForCustomer />
-                </>
-                
+                </>    
             </MapLocationContext.Provider>
         </div>
     )

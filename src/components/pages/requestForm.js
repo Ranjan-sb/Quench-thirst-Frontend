@@ -1,16 +1,17 @@
-//orderType
-//quantity
-//orderDate
-//purpose
-//vehicleTypeId
-
-
 import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startCreateRequest } from '../../actions/request-action';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
+//import { useAuth } from "../../context/AuthContext";
+// import 'leaflet/dist/leaflet.css'
+// import {Icon, popup} from 'leaflet'
+// import { Container } from 'react-bootstrap'
+// import pin from '../../img/pin.png'
+// import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 
 export default function RequestForm() {
+    //const {user} = useAuth()
+    //const [radius, setRadius] = useState(10);
     const { vehicleTypes } = useContext(VehicleTypeContext)
     const serverErrors = useSelector((state) => {
         return state.requests.serverErrors
@@ -166,13 +167,6 @@ export default function RequestForm() {
                         <option value="commercial">Commercial</option>
                         <option value="construction">Construction</option>
                         <option value="priority">Priority</option>
-                        {/* {vehicleTypes.data.map((ele) =>
-                            ele.prices.map((type) => (
-                                <option key={type._id} value={type.purpose}>
-                                    {type.purpose}
-                                </option>
-                            ))
-                        )} */}
                     </select><br />
                     <button type="submit">Submit</button>
                 </div>

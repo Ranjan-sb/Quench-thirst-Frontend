@@ -28,10 +28,12 @@ export default function OrdersListForSupplier() {
     return (
         <>
             <h3>Orders Details</h3>
-            <table className="table">
+            {orders.data.length === 0 ? (
+                <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
+            ):(
+                <table className="table">
                 <thead>
                     <tr>
-                        {/* <th>vehicleTypeId</th> */}
                         <th>orderDate</th>
                         <th>Quantity</th>
                         <th>Purpose</th>
@@ -42,9 +44,10 @@ export default function OrdersListForSupplier() {
                 </thead>
                 <tbody>
                     {orders.data.map((ele) => {
+                        const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
                         return (
                             <tr key={ele._id}>
-                                <td>{ele.orderDate}</td>
+                                <td>{formattedDate}</td>
                                 {ele.lineItems.map((item, index) => (
                                     <React.Fragment key={index}>
                                         <td>{item.quantity}</td>
@@ -65,6 +68,8 @@ export default function OrdersListForSupplier() {
                 </tbody>
             </table>
 
+            )}
+            
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Order Details</ModalHeader>
                 <ModalBody>
@@ -73,28 +78,25 @@ export default function OrdersListForSupplier() {
                             {orders.data.filter((ele) => {
                                 return ele._id === id
                             }).map((orderDetails) => {
+                                const formattedDate = new Date(orderDetails.orderDate).toISOString().split('T')[0];
                                 return <div key={orderDetails._id}>
+                
                                     {console.log(orderDetails)}
-                                <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId)}</p>
+                                <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId?.name)}</p>
                                 <p><b>OrderType : </b> {orderDetails.lineItems.map(item=>item.orderType)}</p>
-                                <p><b>Order Date : </b> {orderDetails.orderDate}</p>
+                                <p><b>Order Date : </b> {formattedDate}</p>
                                 <p><b>Quantity : </b> {orderDetails.lineItems.map(item=>item.quantity)}</p>
                                 <p><b>Purpose : </b> {orderDetails.lineItems.map(item=>item.purpose)}</p>
-                                <p><b>Address : </b> {orderDetails?.customerId?.building} , {orderDetails?.customerId?.locality}, {orderDetails.customerId.state}, {orderDetails.customerId.pinCode}, {orderDetails.customerId.country}</p>
+                                <p><b>Address : </b> {orderDetails?.customerId?.building} , {orderDetails?.customerId?.locality}, {orderDetails?.customerId?.state}, {orderDetails?.customerId?.pinCode}, {orderDetails?.customerId?.country}</p>
+                                <p><b>Supplier Name : </b>{orderDetails.supplierId?.username}</p>
+                                <p><b>Customer Name : </b>{orderDetails.customerId?.username}</p>
                             </div>
                             })}
                         </>}
 
                     </ul>
                 </ModalBody>
-                {/* <ModalFooter>
-                    <Button color="primary" onClick={toggle}>
-                        Accept
-                    </Button>{' '}
-                </ModalFooter> */}
             </Modal>
         </>
     )
-
-
 }

@@ -5,9 +5,7 @@ import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
-
-import HandleRequests from './handleRequestsSupplier';
-import OrdersListForSupplier from './ordersListSupplier';
+import VehicleTable from './vehicleTable';
 
 export default function VehicleForm() {
     const { vehicleTypes } = useContext(VehicleTypeContext)
@@ -67,9 +65,7 @@ export default function VehicleForm() {
                     </Form>
                 )}
             </Formik>
-            
-            <HandleRequests />
-            <OrdersListForSupplier />
+            <VehicleTable />
         </div>
     );
 }

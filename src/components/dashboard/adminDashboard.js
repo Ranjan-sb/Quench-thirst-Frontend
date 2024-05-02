@@ -70,7 +70,7 @@ export default function AdminDashboard(){
     return (
         <div>
             <h3>Admin Dashboard</h3>
-            <h3>Suppliers List - {suppliers.length}</h3>
+            {/* <h3>Suppliers List - {suppliers.length}</h3> */}
             <SuppliersTable suppliers={suppliers} handleShow={handleShow} handleApprove={handleApprove} handleRemove={handleRemove} />
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Supplier Detail</ModalHeader>
@@ -92,7 +92,6 @@ export default function AdminDashboard(){
                     }
                 </ModalBody>
             </Modal>
-            <VehicleTypeForm />
         </div>
     )
 }
