@@ -6,8 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
 import VehicleTable from './vehicleTable';
-import HandleRequests from './handleRequestsSupplier';
-import OrdersListForSupplier from './ordersListSupplier';
+
 
 export default function VehicleForm() {
     const { vehicleTypes } = useContext(VehicleTypeContext)
@@ -68,8 +67,6 @@ export default function VehicleForm() {
                 )}
             </Formik>
             <VehicleTable />
-            <HandleRequests />
-            <OrdersListForSupplier />
         </div>
     );
 }

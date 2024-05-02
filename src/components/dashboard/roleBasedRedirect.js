@@ -5,6 +5,7 @@ import AdminDashboard from './adminDashboard';
 import CustomerDashboard from './customerDashboard';
 //import SupplierDetailsForm from './supplierDetailsForm';
 import VehicleForm from '../pages/vehicleForm';
+import SupplierDashboard from './supplierDashboard';
 
 
 export default function RoleBasedRedirect(){
@@ -24,16 +25,13 @@ export default function RoleBasedRedirect(){
     const renderDashboard = () => {
         switch (userRole) {
             case 'admin':
-                return <AdminDashboard />;
-                // return <HomePage />
+                return <AdminDashboard />
 
             case 'supplier':
-                // return <HomePage />
-                return <VehicleForm />
-                //return <SupplierDetailsForm />
+                return <SupplierDashboard />
+                
             case 'customer':
-                // return <HomePage />
-                return <CustomerDashboard />;
+                return <CustomerDashboard />
             default:
                 // Redirect to login page if role is not recognized or token is missing
                 return navigate('/')

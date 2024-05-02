@@ -7,8 +7,6 @@ export default function CustomerDashboard(){
         <div>
             <h3>Customer Dashboard</h3>
             <RequestForm /><br />
-            <RequestListForCustomer /><br />
-            <OrdersListForCustomer />
         </div>
     )
 }

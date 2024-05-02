@@ -2,16 +2,16 @@ import React, { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startCreateRequest } from '../../actions/request-action';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
-import { useAuth } from "../../context/AuthContext";
-import 'leaflet/dist/leaflet.css'
-import {Icon, popup} from 'leaflet'
-import { Container } from 'react-bootstrap'
-import pin from '../../img/pin.png'
-import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
+//import { useAuth } from "../../context/AuthContext";
+// import 'leaflet/dist/leaflet.css'
+// import {Icon, popup} from 'leaflet'
+// import { Container } from 'react-bootstrap'
+// import pin from '../../img/pin.png'
+// import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 
 export default function RequestForm() {
-    const {user} = useAuth()
-    const [radius, setRadius] = useState(10);
+    //const {user} = useAuth()
+    //const [radius, setRadius] = useState(10);
     const { vehicleTypes } = useContext(VehicleTypeContext)
     const serverErrors = useSelector((state) => {
         return state.requests.serverErrors

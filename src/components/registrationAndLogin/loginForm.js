@@ -6,6 +6,9 @@ import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, FormGroup, FormLabel, FormControl,Alert } from 'react-bootstrap';
+import { startGetRequests,startGetMyRequests } from "../../actions/request-action";
+import { startGetCustomerOrders,startGetSupplierOrders } from "../../actions/orders-action";
+import { useDispatch } from "react-redux";
 
 
 
@@ -13,6 +16,7 @@ export default function LoginForm(props) {
     //const [formErrors, setFormErrors] = useState([])
     const [serverErrors, setServerErrors] = useState([])
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { handleLogin } = useAuth()
     const initialValues = {
         email: '',
@@ -35,6 +39,16 @@ export default function LoginForm(props) {
                     Authorization: localStorage.getItem('token')
                 }
             })
+            if(userResponse.data.role === 'customer'){
+                dispatch(startGetRequests());
+                dispatch(startGetCustomerOrders());
+                //navigate('/customer-dashboard')
+            }
+            if(userResponse.data.role === 'supplier'){
+                dispatch(startGetMyRequests());
+                dispatch(startGetSupplierOrders());
+                //navigate('/supplier-dashboard')
+            }
             props.setLogin()
             handleLogin(userResponse.data)
             navigate('/login-success')
