@@ -230,6 +230,9 @@ export default function SupplierDetailsForm() {
                 <p style={{ color: 'red' }}>{helperFunction('country')}</p>
               )} */}
 
+              
+            
+              <h3>Bank Account Details-</h3>
               <FormGroup controlId="licenseNumber">
                   <FormLabel>Business License Number</FormLabel>
                   <Field
@@ -251,8 +254,6 @@ export default function SupplierDetailsForm() {
               {formikProps.values.licenseNumber.length === 0 && (
                 <p style={{ color: 'red' }}>{helperFunction('licenseNumber')}</p>
               )} */}
-            
-              <h3>Bank Account Details-</h3>
               <FormGroup controlId="accHolderName">
                   <FormLabel>Account Holder Name</FormLabel>
                   <Field
