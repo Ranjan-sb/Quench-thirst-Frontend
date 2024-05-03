@@ -81,7 +81,7 @@ export default function RequestForm() {
             }
 
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='requestForm'>
                     <label htmlFor="vehicleTypeId">Vehicle Type Name : </label>{" "}
                     <select
                         value={formData.vehicleTypeId}

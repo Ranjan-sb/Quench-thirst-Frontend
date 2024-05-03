@@ -28,6 +28,7 @@ import HandleRequests from './components/pages/handleRequestsSupplier';
 import OrdersListForSupplier from './components/pages/ordersListSupplier';
 import CustomerDashboard from './components/dashboard/customerDashboard';
 import AdminDashboard from './components/dashboard/adminDashboard';
+import './style.css'
 
 function App() {
   const dispatch = useDispatch();

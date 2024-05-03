@@ -38,6 +38,7 @@ export default function OrdersListForSupplier() {
                         <th>Quantity</th>
                         <th>Purpose</th>
                         <th>orderType</th>
+                        <th>isFulfilled</th>
                         <th>Payment Status</th>
                         <th>Action</th>
                     </tr>
@@ -55,6 +56,7 @@ export default function OrdersListForSupplier() {
                                         <td>{item.orderType}</td>
                                     </React.Fragment>
                                 ))}
+                                <td>{ele.isFulfilled ? "Yes" : "No"}</td>
                                 <td>{ele.status}</td>
                                 <td>
                                     <button onClick={() => {
@@ -80,7 +82,6 @@ export default function OrdersListForSupplier() {
                             }).map((orderDetails) => {
                                 const formattedDate = new Date(orderDetails.orderDate).toISOString().split('T')[0];
                                 return <div key={orderDetails._id}>
-                
                                     {console.log(orderDetails)}
                                 <p><b>VehicleType : </b> {orderDetails.lineItems.map(item=>item.vehicleTypeId?.name)}</p>
                                 <p><b>OrderType : </b> {orderDetails.lineItems.map(item=>item.orderType)}</p>
@@ -88,8 +89,9 @@ export default function OrdersListForSupplier() {
                                 <p><b>Quantity : </b> {orderDetails.lineItems.map(item=>item.quantity)}</p>
                                 <p><b>Purpose : </b> {orderDetails.lineItems.map(item=>item.purpose)}</p>
                                 <p><b>Address : </b> {orderDetails?.customerId?.building} , {orderDetails?.customerId?.locality}, {orderDetails?.customerId?.state}, {orderDetails?.customerId?.pinCode}, {orderDetails?.customerId?.country}</p>
-                                <p><b>Supplier Name : </b>{orderDetails.supplierId?.username}</p>
+                                {/* <p><b>Supplier Name : </b>{orderDetails.supplierId?.username}</p> */}
                                 <p><b>Customer Name : </b>{orderDetails.customerId?.username}</p>
+                                <p><b>Customer Contact Number : </b>{orderDetails.customerId?.mobileNumber}</p>
                             </div>
                             })}
                         </>}

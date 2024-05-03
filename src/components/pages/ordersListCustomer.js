@@ -69,6 +69,7 @@ export default function OrdersListForCustomer() {
                             <th>Quantity</th>
                             <th>Purpose</th>
                             <th>orderType</th>
+                            <th>isFulfilled</th>
                             <th>Payment Status</th>
                             <th>Action</th>
                         </tr>
@@ -86,9 +87,10 @@ export default function OrdersListForCustomer() {
                                             <td>{item.orderType}</td>
                                         </React.Fragment>
                                     ))}
+                                    <td>{ele.isFulfilled ? "Yes" : "No"}</td>
                                     <td>{ele.status}</td>
                                     <td>
-                                        {ele.status === "incomplete" && (
+                                        {ele.status === "incomplete" && ele.isFulfilled === true && (
                                             <button  onClick={(e)=>{
                                                 makePayment(ele)
                                             }}>Pay</button>
@@ -115,7 +117,9 @@ export default function OrdersListForCustomer() {
                                     <p><b>Status : </b> {ele.status}</p>
                                     <p><b>Order Date : </b> {formattedDate}</p>
                                     <p><b>Supplier Name : </b> {ele.supplierId?.username}</p>
-                                    <p><b>Customer Name:</b> {ele.customerId?.username}</p>
+                                    <p><b>Supplier Contact Number : </b>{ele.supplierId?.mobileNumber}</p>
+                                    {/* <p><b>Customer Name:</b> {ele.customerId?.username}</p> */}
+
                                     {ele.lineItems.map((item, index) => (
                                         <div key={index}>
                                             <p><b>Quantity:</b> {item.quantity}</p>

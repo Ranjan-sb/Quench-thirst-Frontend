@@ -5,11 +5,25 @@ import { Button } from 'react-bootstrap';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
-import VehicleTable from './vehicleTable';
+import Swal from "sweetalert2"
 
 export default function VehicleForm() {
     const { vehicleTypes } = useContext(VehicleTypeContext)
     const navigate = useNavigate();
+
+    const sweetAlertFunc = () => {
+        Swal.fire({
+            title: "Vehicle Data",
+            text: "Vehicle Data Added Successfully",
+            icon: "success",
+            confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate("/supplier-dashboard")
+            }
+        })
+    }
+
 
     const initialValues = {
         vehicleNumber: '',
@@ -37,7 +51,7 @@ export default function VehicleForm() {
                             }
                         });
                         console.log('Vehicle added successfully:', response.data);
-                        navigate('/supplier-dashboard');
+                        sweetAlertFunc()
                     } catch (error) {
                         console.error('Error adding vehicle:', error);
                     }
@@ -65,7 +79,6 @@ export default function VehicleForm() {
                     </Form>
                 )}
             </Formik>
-            <VehicleTable />
         </div>
     );
 }

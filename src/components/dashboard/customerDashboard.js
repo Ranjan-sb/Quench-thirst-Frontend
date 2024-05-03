@@ -1,8 +1,8 @@
 import React,{ useEffect, useReducer, useContext } from "react";
 import axios from 'axios'
-import OrdersListForCustomer from "../pages/ordersListCustomer";
+//import OrdersListForCustomer from "../pages/ordersListCustomer";
 import RequestForm from "../pages/requestForm";
-import RequestListForCustomer from "../pages/requestsListCustomer";
+//import RequestListForCustomer from "../pages/requestsListCustomer";
 import Map from "../pages/location/map";
 import mapLocationReducer from '../../reducers/suppliersMap-reducer'
 import { MapLocationContext } from "../../context/MapContext";

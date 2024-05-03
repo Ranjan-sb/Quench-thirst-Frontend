@@ -2,6 +2,7 @@ import { useState,useEffect } from "react"
 import axios from "axios"
 import VehicleForm from "../pages/vehicleForm";
 import SupplierDetailsForm from "./supplierDetailsForm";
+import VehicleTable from "../pages/vehicleTable"
 
 export default function SupplierDashboard(){
     const [supplierData,setSupplierData] = useState([])
@@ -31,7 +32,11 @@ export default function SupplierDashboard(){
             {loading ? (
                 <p>Loading...</p>
             ) : supplierData ? (
-                <VehicleForm />
+                <>
+                    <VehicleForm /><br />
+                    <VehicleTable /> 
+                </>
+                
             ) : (
                 <SupplierDetailsForm />
             )}
