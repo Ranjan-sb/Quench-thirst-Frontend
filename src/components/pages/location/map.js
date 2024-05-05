@@ -6,7 +6,7 @@ import { useAuth } from '../../../context/AuthContext'
 import { MapLocationContext } from '../../../context/MapContext'
 import { Icon } from 'leaflet'
 import pin from '../../../img/pin.png'
-import user from '../../../img/user.png'
+import user1 from '../../../img/user1.png'
 
 
 export default function Map(){
@@ -24,7 +24,7 @@ export default function Map(){
 })
 
   const userMarker=new Icon({
-    iconUrl:user,
+    iconUrl:user1,
     iconSize: [38, 38]
   })
   
@@ -32,18 +32,24 @@ export default function Map(){
     return [arr[1], arr[0]]
   }
 
-  // const [center, setCenter]=useState([coordinates[1],coordinates[0]])
-  const [center, setCenter]=useState(null)
-  console.log("center-", center)
-
   useEffect(()=>{
     const userCenter=user?.location?.coordinates
     console.log("userCenter-",userCenter)
     if(userCenter){
       setCenter(reverseLatLon(userCenter))
+      // setCenter(userCenter)
     }
   },[user])
 
+
+  // const [center, setCenter]=useState([coordinates[1],coordinates[0]])
+  const [center, setCenter]=useState(null)
+  console.log("center-", center)
+
+  
+  
+
+  
   if(!center || !mapLocations){
     return <div>Loading...</div>
   }
@@ -58,7 +64,7 @@ export default function Map(){
                     />
 
                     {/* Circle representing the radius */}
-                    <Circle center={center} radius={100 * 1000} />
+                    <Circle center={center} radius={10 * 1000} />
 
                     {/* Display nearby services as markers */}
                     {mapLocations.data.map((ele, index) => (

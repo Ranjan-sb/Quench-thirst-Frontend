@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setServerErrors, startRemoveRequest } from "../../actions/request-action";
+import { setServerErrors, startGetRequests, startRemoveRequest } from "../../actions/request-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 export default function RequestListForCustomer() {
+    const [page, setPage]=useState(1)
+    const [limit, setLimit]=useState(5||10)
+    const [orderTypeSearch, setOrderTypeSearch]=useState('')
+    const [purposeSearch, setPurposeSearch]=useState('')
+    const [loading, setLoading] = useState(false);
+
     const requests = useSelector((state) => {
         return state.requests;
     });
+
+    const totalPages = useSelector((state) => state.requests.totalPages);
+
+    useEffect(()=>{
+        setLoading(true)
+        dispatch(startGetRequests(page,limit,orderTypeSearch,purposeSearch))  
+            .then(()=>setLoading(false))
+            .catch(()=>setLoading(false))   
+    },[page,limit,orderTypeSearch,purposeSearch])
+    
 
     const dispatch = useDispatch();
 
@@ -31,12 +47,45 @@ export default function RequestListForCustomer() {
         }
     };
 
+    
+
     return (
         <>
-            <h3>Request Details</h3>
-            {requests.data.length === 0  ? (
+            <div className="container mt-4">
+                <h3>Request Details</h3>
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label><b>Order-Type:</b></label>
+                            <input
+                                type="text" 
+                                className="form-control"
+                                value={orderTypeSearch} 
+                                onChange={(e)=>setOrderTypeSearch(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label><b>Purpose:</b></label>
+                            <input
+                                type='text' 
+                                className="form-control"
+                                value={purposeSearch}
+                                onChange={(e)=>setPurposeSearch(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* {requests.length===0 ? ( */}
+            {/* {requests.data.length === 0  ? ( */}
+            {requests.data.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
+            
                 <p><b>THERE IS NO REQUEST DATA FOR THIS CUSTOMER TO DISPLAY</b></p>
             ) : (
+                <>
+                
                 <table className="table">
                     <thead>
                         <tr>
@@ -50,7 +99,9 @@ export default function RequestListForCustomer() {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* {requests.map((ele)=>{ */}
                         {requests.data.filter((request)=>{return request.status==='pending'}).length === 0?
+                        
                         <p><br /><b>No Request data to display</b></p>:
                         requests.data.filter((request)=>{return request.status==='pending'}).map((ele) => {
                             const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
@@ -77,6 +128,40 @@ export default function RequestListForCustomer() {
                         })}
                     </tbody>
                 </table>
+                    <nav aria-label="Page navigation example ">
+                        <ul className="pagination d-flex justify-content-end">
+                            <li className="page-item">
+                                            <button 
+                                                className="page-link" 
+                                                onClick={() => {setPage(prev=>prev- 1)}} 
+                                                disabled={page <=1} 
+                                            >
+                                                Previous
+                                            </button>
+                                        </li>
+                                        {/* {[...Array(Math.ceil(requests.totalCount / limit)).keys()].map((num) => (
+                                            <li key={num} className={`page-item ${page === num + 1 ? 'active' : ''}`}>
+                                                <button
+                                                    className="page-link"
+                                                    onClick={() => setPage(num + 1)}
+                                                >
+                                                    {num + 1}
+                                                </button>
+                                            </li>
+                                        ))} */}
+                                        <li><b>{page}</b></li>
+                                        <li className="page-item">
+                                            <button 
+                                                className="page-link" 
+                                                onClick={() =>{setPage(prev=>prev+ 1)}}
+                                            >
+                                                Next
+                                            </button>
+                                        </li>
+                        </ul>
+                    </nav>
+                </>
+
             )}
 
             <Modal isOpen={modal} toggle={toggle}>
