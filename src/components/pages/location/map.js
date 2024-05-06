@@ -58,7 +58,7 @@ export default function Map(){
                     />
 
                     {/* Circle representing the radius */}
-                    <Circle center={center} radius={100 * 1000} />
+                    <Circle center={center} radius={10 * 1000} />
 
                     {/* Display nearby services as markers */}
                     {mapLocations.data.map((ele, index) => (

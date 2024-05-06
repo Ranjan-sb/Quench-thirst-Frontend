@@ -7,7 +7,7 @@ export const startGetRequests = () => {
                     Authorization : localStorage.getItem('token')
                 }
             })
-            console.log(response.data)
+            console.log("request",response.data)
             dispatch(setRequests(response.data))
         } catch(err) {
             alert(err.message)
@@ -66,6 +66,7 @@ export const startGetMyRequests = () => {
             console.log(response.data)
         } catch(err) {
             alert(err.message)
+            console.log(err.response.data.errors)
         }
     }
 }
@@ -88,6 +89,7 @@ export const startRemoveRequest = (id) => {
             dispatch(removeRequest(response.data))
         } catch(err) {
             alert(err.message)
+            console.log(err.response.data.errors)
         }
     }
 }
@@ -110,6 +112,7 @@ export const startAcceptRequest = (id) => {
             dispatch(approveRequest(response.data._id))
         } catch(err) {
             alert(err.message)
+            console.log(err.response.data.errors)
         }
     }
 }
@@ -120,3 +123,50 @@ const approveRequest = (requestId) => {
         payload: requestId
     }
 }
+
+export const startRejectRequest = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.put(`http://localhost:3100/api/requests/${id}/reject`, {}, {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            });
+            dispatch(rejectRequest(id));
+        } catch (err) {
+            alert(err.message); 
+            console.log(err.response.data.errors)
+        }
+    };
+};
+
+const rejectRequest = (requestId) => {
+    return {
+        type: 'REJECT_REQUEST',
+        payload: requestId
+    };
+};
+// export const startRejectRequest = (supplierId, requestId) => {
+//     return async (dispatch) => {
+//         try {
+//             const response = await axios.put(`http://localhost:3100/api/requests/${requestId}/reject`, {}, {
+//                 headers: {
+//                     Authorization: localStorage.getItem('token')
+//                 }
+//             })
+//             dispatch(rejectRequest(supplierId, requestId));
+//         } catch (err) {
+//             alert(err.message)
+//         }
+//     }
+// }
+
+// const rejectRequest = (supplierId, requestId) => {
+//     return {
+//         type: 'REJECT_REQUEST',
+//         payload: {
+//             supplierId: supplierId,
+//             requestId: requestId
+//         }
+//     }
+// }
