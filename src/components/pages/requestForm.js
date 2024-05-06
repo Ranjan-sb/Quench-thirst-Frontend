@@ -68,7 +68,7 @@ export default function RequestForm() {
     return (
         <>
             {
-                serverErrors.length > 0 && (
+                serverErrors?.length > 0 && (
                     <div>
                         These errors prohibited the form from being saved:
                         <ul>
