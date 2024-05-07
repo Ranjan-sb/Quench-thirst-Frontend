@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { setServerErrors } from "../../actions/request-action"
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { startAcceptRequest } from "../../actions/request-action";
+import { startAcceptRequest,startRejectRequest } from "../../actions/request-action";
 
 export default function HandleRequests() {
     const requests = useSelector((state) => {
@@ -28,6 +28,13 @@ export default function HandleRequests() {
     const handleAccept = (id) => {
         dispatch(startAcceptRequest(id))
         toggle()
+    }
+    const handleReject = (id) => {
+        const confirm = window.confirm("Are you sure?")
+        if(confirm){
+            dispatch(startRejectRequest(id))
+            toggle()
+        } 
     }
     return (
         <>
@@ -94,8 +101,11 @@ export default function HandleRequests() {
                                     <p><b>Quantity : </b> {requestDetails.quantity}</p>
                                     <p><b>Purpose : </b> {requestDetails.purpose}</p>
                                     <p><b>Address : </b> {requestDetails.customerAddress}</p><br />
-                                    <Button color="primary" onClick={() => { handleAccept(requestDetails._id) }}>
+                                    <Button color="success" onClick={() => { handleAccept(requestDetails._id) }}>
                                         Accept
+                                    </Button>{' '}
+                                    <Button color="danger" className="ml-4" onClick={() => { handleReject(requestDetails._id) }}>
+                                        Reject
                                     </Button>{' '}
                                 </div>
                             })}

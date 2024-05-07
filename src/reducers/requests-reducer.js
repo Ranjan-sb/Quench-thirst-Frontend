@@ -34,6 +34,37 @@ const requestsReducer = (state = initialState, action) => {
                 })
             }
         }
+
+        case 'REJECT_REQUEST': {
+            return {
+                ...state,
+                data: state.data.map(request => {
+                    if (request._id === action.payload) {
+                        return {
+                            ...request,
+                            // Remove the request from the suppliers' list for the current supplier
+                            suppliers: request.suppliers.filter(supplier => supplier.supplierId !== action.supplierId)
+                        };
+                    }
+                    return request;
+                })
+            }
+        }
+        // case 'REJECT_REQUEST': {
+        //     const { supplierId, requestId } = action.payload;
+        //     return {
+        //         ...state,
+        //         data: state.data.map(request => {
+        //             if (request._id === requestId && request.supplierId === supplierId) {
+        //                 return {
+        //                     ...request,
+        //                     status: 'rejected'
+        //                 };
+        //             }
+        //             return request;
+        //         })
+        //     }
+        // }
         default: {
             return { ...state }
         }

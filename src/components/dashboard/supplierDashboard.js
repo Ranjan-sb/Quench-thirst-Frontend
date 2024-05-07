@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react"
 import axios from "axios"
 import VehicleForm from "../pages/vehicleForm";
-import SupplierDetailsForm from "./supplierDetailsForm";
+import SupplierDetailsForm from "../pages/multiStepForm/supplierDetailsForm";
 import VehicleTable from "../pages/vehicleTable"
 
 export default function SupplierDashboard(){

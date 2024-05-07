@@ -24,10 +24,10 @@ const Card = ({ vehicle, vehicleTypes, onDelete }) => {
 
     return (
         <div className="card">
-            <h3>{vehicle.vehicleNumber}</h3>
-            <p><b>Vehicle Type : </b>{typeName}</p>
+            <h3><b>{vehicle.vehicleNumber}</b></h3>
+            <h6><b>Vehicle Type : </b>{typeName}</h6>
             <div className="actions">
-                <button>Update</button>{" "}
+                {/* <button>Update</button>{" "} */}
                 <button onClick={handleDelete}>Delete</button>
             </div>
         </div>
