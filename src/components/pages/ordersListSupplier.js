@@ -170,10 +170,14 @@ export default function OrdersListForSupplier() {
                                 <p><b>Order Date : </b> {formattedDate}</p>
                                 <p><b>Quantity : </b> {orderDetails.lineItems.map(item=>item.quantity)}</p>
                                 <p><b>Purpose : </b> {orderDetails.lineItems.map(item=>item.purpose)}</p>
+                                <p><b>Price : </b>
+                                {orderDetails.price}</p>
+                                <p><b>Customer Name: </b>
+                                {orderDetails?.customerId?. username}</p>
                                 <p><b>Address : </b> {orderDetails?.customerId?.building} , {orderDetails?.customerId?.locality}, {orderDetails?.customerId?.state}, {orderDetails?.customerId?.pinCode}, {orderDetails?.customerId?.country}</p>
-                                <p><b>Co-ordinates:</b>
+                                {/* <p><b>Co-ordinates:</b>
                                 {orderDetails?.customerId?.location?.coordinates[0]},{orderDetails?.customerId?.location?.coordinates[1]}
-                                </p>
+                                </p> */}
                                 {/* <p><b>Supplier Name : </b>{orderDetails.supplierId?.username}</p> */}
                                 <p><b>Customer Name : </b>{orderDetails.customerId?.username}</p>
                                 <p><b>Customer Contact Number : </b>{orderDetails.customerId?.mobileNumber}</p>
