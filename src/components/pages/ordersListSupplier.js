@@ -27,6 +27,11 @@ export default function OrdersListForSupplier() {
     })
     console.log("orders-details-",orders)
 
+    const orders_1=orders.data.map((ele)=>{
+        return (ele.customerId.location)
+    })
+    console.log("orders-details-cust_location-",orders_1)
+
     const dispatch = useDispatch()
 
     const [id, setId] = useState('')
@@ -163,17 +168,23 @@ export default function OrdersListForSupplier() {
                         </Marker>
 
                         {/* Markers for customer locations */}
-                        {orders.data.map((orderDetails) => (
-                            <Marker 
-                                key={orderDetails._id} 
-                                position={reverseLatLon(orderDetails.customerId.location.coordinates)}
-                                icon={customMarker}
-                            >
-                                <Popup>
-                                    Customer's location
-                                </Popup>
-                            </Marker>
-                        ))}
+
+                        <LayerGroup>
+                            {orders.data.map((orderDetails) => {
+                                console.log("Customer Location Coordinates:", reverseLatLon(orderDetails.customerId.location.coordinates));
+                                return (
+                                    <Marker 
+                                        key={orderDetails._id} 
+                                        position={reverseLatLon(orderDetails.customerId.location.coordinates)}
+                                        icon={customMarker}
+                                    >
+                                        <Popup>
+                                            Customer's location
+                                        </Popup>
+                                    </Marker>
+                                );
+                            })}
+                        </LayerGroup>
                     
 
                     </MapContainer>
