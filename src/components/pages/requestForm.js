@@ -35,7 +35,7 @@ export default function RequestForm() {
         vehicleTypeId: '',
         customerAddress: '',
         orderType: 'immediate', // Default value set to 'immediate'
-        quantity: '',
+        quantity: 0,
         orderDate: new Date().toISOString().split('T')[0], // Set initial orderDate to today's date
         purpose: ''
     });
@@ -59,7 +59,7 @@ export default function RequestForm() {
                 vehicleTypeId: '',
                 customerAddress: '',
                 orderType: 'immediate',
-                quantity: '',
+                quantity: 0,
                 orderDate: new Date().toISOString().split('T')[0],
                 purpose: ''
             })
@@ -72,7 +72,7 @@ export default function RequestForm() {
         setFormData({
             vehicleTypeId: '',
             orderType: '',
-            quantity: '',
+            quantity: 0,
             orderDate: '',
             purpose: ''
         })
@@ -139,11 +139,12 @@ export default function RequestForm() {
                     <div>
                         <label htmlFor="quantity">Quantity : </label>{" "}
                         <input
-                            type="text"
+                            type="number"
                             id="quantity"
                             name="quantity"
                             value={formData.quantity}
                             onChange={handleChange}
+                            max={2}
                         />
                     </div>
                     {formData.orderType === 'immediate' ? (
