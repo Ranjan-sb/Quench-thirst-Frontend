@@ -139,7 +139,12 @@ export default function OrdersListForSupplier() {
                                     <button onClick={() => {
                                         setId(ele._id);
                                         toggle();
-                                    }}>Show</button>
+                                    }}>Show</button>{' '}
+                                    {!ele.isFulfilled && (
+                                        <button onClick={()=>{
+                                            handleIsFullFilled(ele._id)
+                                        }}>FulFilled</button>
+                                    )}
                                 </td>
                             </tr>
                         )

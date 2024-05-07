@@ -43,9 +43,23 @@ export default function RequestForm() {
     // Handler for input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // If orderType is immediate, set orderDate to today's date
-        if (name === 'orderType' && value === 'immediate') {
-            setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
+        // // If orderType is immediate, set orderDate to today's date
+        // if (name === 'orderType' && value === 'immediate') {
+        //     setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
+        // } else {
+        //     setFormData({ ...formData, [name]: value });
+        // }
+        if (name === 'orderType') {
+            // If orderType is immediate, set orderDate to today's date
+            if (value === 'immediate') {
+                setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
+            } else {
+                // If orderType is advance, set orderDate to a future date
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1); // Get tomorrow's date
+                const futureDate = tomorrow.toISOString().split('T')[0];
+                setFormData({ ...formData, orderType: value, orderDate: futureDate });
+            }
         } else {
             setFormData({ ...formData, [name]: value });
         }
@@ -144,6 +158,7 @@ export default function RequestForm() {
                             name="quantity"
                             value={formData.quantity}
                             onChange={handleChange}
+                            min={1}
                             max={2}
                         />
                     </div>
