@@ -1,13 +1,16 @@
 import axios from 'axios'
-export const startGetRequests = () => { 
+export const startGetRequests = (page, limit, orderTypeSearch, purposeSearch) => { 
     return async (dispatch) => {
         try {
-            const response = await axios.get('http://localhost:3100/api/requests',{
+            const response = await axios.get(`http://localhost:3100/api/requests?page=${page?page:1}&&limit=${limit?limit:5}&&orderTypeSearch=${orderTypeSearch?orderTypeSearch:''}&&purposeSearch=${purposeSearch?purposeSearch:''}`,{
+            // const response = await axios.get('http://localhost:3100/api/requests',{
                 headers : {
                     Authorization : localStorage.getItem('token')
                 }
             })
+
             console.log("request",response.data)
+          
             dispatch(setRequests(response.data))
         } catch(err) {
             alert(err.message)
