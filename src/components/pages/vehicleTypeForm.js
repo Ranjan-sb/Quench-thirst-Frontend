@@ -53,7 +53,7 @@ export default function VehicleTypeForm(){
           name: Yup.string()
             .max(25, 'Must be 25 characters or less')
             .required('Required')
-            .oneOf(['tractor','tipper','lorry'],'vehicles should be one amongst the options'),
+            .oneOf(['Tractor','Tipper','Lorry'],'vehicles should be one amongst the options'),
           capacity: Yup.string()
             .max(30, 'Must be 30 characters or less')
             .required('Required')
@@ -88,20 +88,20 @@ export default function VehicleTypeForm(){
                     onChange={(e)=>{ 
                         const selectedName = e.target.value;
                         let selectedCapacity = '';
-                        if (selectedName === 'tractor') {
+                        if (selectedName === 'Tractor') {
                             selectedCapacity = '6000';
-                        } else if (selectedName === 'tipper') {
+                        } else if (selectedName === 'Tipper') {
                             selectedCapacity = '8000';
-                        } else if (selectedName === 'lorry') {
+                        } else if (selectedName === 'Lorry') {
                             selectedCapacity = '12000';
                         }
                         formikProps.setValues({ ...formikProps.values, name: selectedName, capacity: selectedCapacity });
                     }}
                 >
                     <option value=''>Select Vehicle Name</option>
-                    <option value="tractor">Tractor</option>
-                    <option value="tipper">Tipper</option>
-                    <option value="lorry">Lorry</option>
+                    <option value="Tractor">Tractor</option>
+                    <option value="Tipper">Tipper</option>
+                    <option value="Lorry">Lorry</option>
                 </Field>
                 <ErrorMessage className="text-danger" component="div" name="name" />
                   {formikProps.values.name.length === 0 && (
@@ -119,11 +119,11 @@ export default function VehicleTypeForm(){
                         const selectedCapacity = e.target.value;
                         let selectedName = '';
                         if (selectedCapacity === '6000') {
-                            selectedName = 'tractor';
+                            selectedName = 'Tractor';
                         } else if (selectedCapacity === '8000') {
-                            selectedName = 'tipper';
+                            selectedName = 'Tipper';
                         } else if (selectedCapacity === '12000') {
-                            selectedName = 'lorry';
+                            selectedName = 'Lorry';
                         }
                         formikProps.setValues({ ...formikProps.values, name: selectedName, capacity: selectedCapacity });
                     }}

@@ -71,7 +71,10 @@ export default function Map(){
                         <Marker 
                           key={index} 
                           position={ele.location?.coordinates} icon={customMarker}
-                        >                      
+                        >  
+                        <Popup>
+                                Supplier
+                        </Popup>                    
                             {/* <Popup><Link to={`/spaceBookingPage/${space._id}`}>{space.title}</Link></Popup> */}
                         </Marker>
                     ))}
