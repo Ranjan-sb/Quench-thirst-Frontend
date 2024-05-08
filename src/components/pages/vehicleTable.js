@@ -40,14 +40,7 @@ export default function VehicleTable() {
                 </div>
             )}
         </>
-    // <>
-    //     <h4>Vehicle Details : </h4>
-    //     <div className="card-container">
-    //         {vehicles.map(vehicle => (
-    //             <Card key={vehicle._id} vehicle={vehicle} vehicleTypes={vehicleTypes.data} onDelete={handleDelete}/>
-    //         ))}
-    //     </div>
-    // </>
+   
         
     );
 }

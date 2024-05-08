@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../style.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from 'react-bootstrap';
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const RegisterForm = () => {
     const navigate = useNavigate()
 
     const [errors, setErrors] = useState({})
+    const [serverErrors, setServerErrors] = useState([])
 
     const validateForm = (data) => {
         const errors = {};
@@ -83,16 +85,22 @@ const RegisterForm = () => {
             localStorage.setItem('email', response.data.email)
             navigate('/emailVerification')
         } catch (error) {
-            console.error(error);
-            setErrors(error.response.data.errors)
+            if (error.response && error.response.data && error.response.data.errors) {
+                // Set server errors in state
+                setServerErrors(error.response.data.errors);
+            } else {
+                // Handle other types of errors
+                console.error('Unexpected error:', error);
+            }
         }
     };
 
     return (
-        <div>
+        
+        <div className="register-form-container">
             <h1>User Registration</h1>
             <form onSubmit={handleSubmit}>
-
+            <div className='role-container'>
             <label>Role : </label>
                 <label htmlFor="customer">
                     <input 
@@ -115,9 +123,19 @@ const RegisterForm = () => {
                         onChange={handleChange} 
                     />
                     Supplier
-                </label><br />
-                {errors.role && <div className="error">{errors.role}</div>}
+                </label>
+                {errors.role && <div className="error-message">{errors.role}</div>}
 
+            </div>
+            {/* {console.log(serverErrors.map((ele)=>{return(ele)}))} */}
+            {serverErrors.length > 0 && (
+                <Alert variant="danger">
+                    {serverErrors.map((error, index) => (
+                        <p key={index}>{error.msg}</p>
+                    ))}
+                </Alert>
+            )}
+                {/* {errors.server && <div className="error-message">{errors.server}</div>}  */}
                 <label htmlFor="username">Username:</label><br />
                 <input 
                   type="text" 

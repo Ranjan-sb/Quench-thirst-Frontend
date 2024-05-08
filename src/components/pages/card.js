@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../../card.css'
 
 const Card = ({ vehicle, vehicleTypes, onDelete }) => {
     console.log("veh:",vehicle)
@@ -27,13 +28,10 @@ const Card = ({ vehicle, vehicleTypes, onDelete }) => {
             <h3><b>{vehicle.vehicleNumber}</b></h3>
             <h6><b>Vehicle Type : </b>{typeName}</h6>
             <div className="actions">
-                {/* <button>Update</button>{" "} */}
                 <button onClick={handleDelete}>Delete</button>
             </div>
         </div>
     );
 }
 
-export default Card;
-
-
+export default Card
