@@ -118,7 +118,7 @@ export const startAcceptRequest = (id) => {
             dispatch(updateOrder(response.data[1]))
         } catch(err) {
             alert(err.message)
-            console.log(err.response.data.errors)
+            console.log(err.response?.data?.errors)
         }
     }
 }
