@@ -9,7 +9,7 @@ export default function VehicleTable() {
     
 
     const handleDelete = deletedVehicleId => {
-        setVehicles(prevVehicles => prevVehicles.filter(vehicle => vehicle._id !== deletedVehicleId));
+        setVehicles(vehicles.filter(vehicle => vehicle._id !== deletedVehicleId));
     };
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function VehicleTable() {
                 console.log(error);
             }
         })();
-    }, []);
+    }, [vehicles]);
 
     return (
         <>

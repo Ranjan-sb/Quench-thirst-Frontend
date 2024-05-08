@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux"
 import { setServerErrors } from "../../actions/request-action"
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startAcceptRequest,startRejectRequest } from "../../actions/request-action";
+import { useAuth } from "../../context/AuthContext";
 
 export default function HandleRequests() {
+    const {user} = useAuth()
+
     const requests = useSelector((state) => {
         return state.requests
     })
-
+    console.log("daata-",requests.data)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -36,10 +39,23 @@ export default function HandleRequests() {
             toggle()
         } 
     }
+
+
+    console.log(user, 'user')
+    const data = requests.data.filter((ele)=>{
+        for(let i =0; i <ele.suppliers.length;i++){
+            if(ele.suppliers[i]['supplierId'] === user._id){
+                return true
+            }
+        }
+    })
+
+    console.log(data, 'data-after-filter')
+    
     return (
         <>
             <h3>Request Details</h3>
-            {requests.data.length === 0 ? (
+            {data.length === 0 ? (
                 <p><b>THERE IS NO REQUEST DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
             ) : (
                 <table className="table">
@@ -55,9 +71,9 @@ export default function HandleRequests() {
                         </tr>
                     </thead>
                     <tbody>
-                        {requests.data.filter((request) => { return request.status === 'pending' }).length === 0 ?
+                        {data.filter((request) => { return request.status === 'pending' }).length === 0 ?
                             <p><br /><b>No Request data to display</b></p> :
-                            requests.data.filter((request) => { return request.status === 'pending' }).map((ele) => {
+                            data.filter((request) => { return request.status === 'pending' }).map((ele) => {
                                 const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];
                                 return (
                                     <tr key={ele._id}>

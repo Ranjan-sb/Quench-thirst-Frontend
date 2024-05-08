@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { startGetCustomerOrders,startGetSupplierOrders } from "../../actions/orders-action";
 
 export default function OrdersListForCustomer() {
     const orders = useSelector((state) => {
@@ -12,6 +13,7 @@ export default function OrdersListForCustomer() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(startGetCustomerOrders());
         
         return () => {
             dispatch(setServerErrors([]));

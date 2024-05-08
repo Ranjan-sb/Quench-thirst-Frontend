@@ -41,7 +41,7 @@ export default function LoginForm(props) {
             })
             if(userResponse.data.role === 'customer'){
                 dispatch(startGetRequests());
-                dispatch(startGetCustomerOrders());
+                // dispatch(startGetCustomerOrders());
                 //navigate('/customer-dashboard')
             }
             if(userResponse.data.role === 'supplier'){

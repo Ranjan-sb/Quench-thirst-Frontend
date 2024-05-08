@@ -128,7 +128,7 @@ export default function VehicleForm() {
             <Formik
                 initialValues={initialValues}
                 validationSchema={vehicleValidationSchema}
-                onSubmit={async (values, { setSubmitting }) => {
+                onSubmit={async (values, { setSubmitting,resetForm }) => {
                     try {
                         const response = await axios.post('http://localhost:3100/api/vehicles', values,{
                             headers : {
@@ -136,6 +136,7 @@ export default function VehicleForm() {
                             }
                         });
                         console.log('Vehicle added successfully:', response.data);
+                        resetForm()
                         sweetAlertFunc()
                     } catch (error) {
                         console.error('Error adding vehicle:', error);

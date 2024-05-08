@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 export const startGetRequests = (page, limit, orderTypeSearch, purposeSearch) => { 
     return async (dispatch) => {
         try {
@@ -144,7 +145,8 @@ export const startRejectRequest = (id) => {
                     Authorization: localStorage.getItem('token')
                 }
             });
-            dispatch(rejectRequest(id));
+            console.log("-----",response.data)
+            dispatch(rejectRequest(response.data.requestId,response.data.supplierId));
         } catch (err) {
             alert(err.message); 
             console.log(err.response.data.errors)
@@ -152,10 +154,10 @@ export const startRejectRequest = (id) => {
     };
 };
 
-const rejectRequest = (requestId) => {
+const rejectRequest = (requestId,supplierId) => {
     return {
         type: 'REJECT_REQUEST',
-        payload: requestId
+        payload: {requestId,supplierId}
     };
 };
 // export const startRejectRequest = (supplierId, requestId) => {

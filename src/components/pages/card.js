@@ -12,12 +12,12 @@ const Card = ({ vehicle, vehicleTypes, onDelete }) => {
             const confirm = window.confirm('Are you sure you want to delete this vehicle ?')
             if(confirm){
                 await axios.delete(`http://localhost:3100/api/vehicles/${vehicle._id}`, {
-                headers: {
-                    Authorization: localStorage.getItem('token')
-                }
-            });
+                    headers: {
+                        Authorization: localStorage.getItem('token')
+                    }
+                });
+                onDelete(vehicle._id); // Update the state in the parent component
             }
-            onDelete(vehicle._id); // Update the state in the parent component
         } catch (error) {
             console.error('Error deleting vehicle:', error);
         }
@@ -28,7 +28,7 @@ const Card = ({ vehicle, vehicleTypes, onDelete }) => {
             <h3><b>{vehicle.vehicleNumber}</b></h3>
             <h6><b>Vehicle Type : </b>{typeName}</h6>
             <div className="actions">
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={()=>handleDelete()}>Delete</button>
             </div>
         </div>
     );

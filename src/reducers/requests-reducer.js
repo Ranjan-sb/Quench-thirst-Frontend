@@ -36,14 +36,19 @@ const requestsReducer = (state = initialState, action) => {
         }
 
         case 'REJECT_REQUEST': {
+            console.log("a-p",action.payload)
             return {
                 ...state,
                 data: state.data.map(request => {
-                    if (request._id === action.payload) {
+                    if (request._id === action.payload.requestId) {
+                        console.log("req-",request)
                         return {
                             ...request,
                             // Remove the request from the suppliers' list for the current supplier
-                            suppliers: request.suppliers.filter(supplier => supplier.supplierId !== action.supplierId)
+                            suppliers: request.suppliers.filter(supplier => {
+                                console.log('supp--',supplier)
+                                return supplier.supplierId != action.payload.supplierId
+                            })
                         };
                     }
                     return request;
