@@ -47,7 +47,7 @@ const requestsReducer = (state = initialState, action) => {
                             // Remove the request from the suppliers' list for the current supplier
                             suppliers: request.suppliers.filter(supplier => {
                                 console.log('supp--',supplier)
-                                return supplier.supplierId != action.payload.supplierId
+                                return supplier.supplierId !== action.payload.supplierId
                             })
                         };
                     }

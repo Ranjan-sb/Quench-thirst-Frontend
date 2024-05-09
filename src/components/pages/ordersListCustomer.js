@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { startGetCustomerOrders,startGetSupplierOrders } from "../../actions/orders-action";
+import { startGetCustomerOrders } from "../../actions/orders-action";
 
 export default function OrdersListForCustomer() {
     const orders = useSelector((state) => {
@@ -14,7 +14,7 @@ export default function OrdersListForCustomer() {
 
     useEffect(() => {
         dispatch(startGetCustomerOrders());
-        
+
         return () => {
             dispatch(setServerErrors([]));
         };
@@ -22,40 +22,40 @@ export default function OrdersListForCustomer() {
 
     const [id, setId] = useState('');
     const [modal, setModal] = useState(false);
-    const [vehicleTypeId,setVehicleTypeId]=useState('')
-    
-    const [show,setShow] = useState(false)
+    const [vehicleTypeId, setVehicleTypeId] = useState('')
+
+    const [show, setShow] = useState(false)
 
     const toggle = () => {
         setModal(!modal);
         dispatch(setServerErrors([]));
     };
 
-    const makePayment = async(order)=>{
-        try{
+    const makePayment = async (order) => {
+        try {
             const body = {
-                amount:order.amount
+                amount: order.amount
             }
-            
-        const response = await axios.post(`http://localhost:3100/api/create-checkout-session?orderId=${order._id}`,body)
-        
-        //Store the transaction id in local storage
-        localStorage.setItem('stripeId', response.data.id)
-        
-        //Redirecting the user to the chekout page of stripe
-        window.location = response.data.url; 
 
-        }catch(err){
+            const response = await axios.post(`http://localhost:3100/api/create-checkout-session?orderId=${order._id}`, body)
+
+            //Store the transaction id in local storage
+            localStorage.setItem('stripeId', response.data.id)
+
+            //Redirecting the user to the chekout page of stripe
+            window.location = response.data.url;
+
+        } catch (err) {
             console.log(err)
         }
     }
     console.log(vehicleTypeId)
-        
 
-    const getName=(id)=>{
+
+    const getName = (id) => {
         setVehicleTypeId(id)
         setShow(!show)
-    }    
+    }
 
 
     return (
@@ -93,7 +93,7 @@ export default function OrdersListForCustomer() {
                                     <td>{ele.status}</td>
                                     <td>
                                         {ele.status === "incomplete" && ele.isFulfilled === true && (
-                                            <button  onClick={(e)=>{
+                                            <button onClick={(e) => {
                                                 makePayment(ele)
                                             }}>Pay</button>
                                         )}
@@ -109,7 +109,12 @@ export default function OrdersListForCustomer() {
                 </table>
             )}
             <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}>Order Details</ModalHeader>
+                <ModalHeader toggle={toggle}>Token No : {(orders.data.find((ele)=>{
+                    return (
+                        ele._id === id
+                    )
+                }))?.tokenNumber}
+                </ModalHeader>
                 <ModalBody>
                     {orders.data.map((ele) => {
                         const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];

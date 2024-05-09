@@ -1,0 +1,123 @@
+/* .requestForm {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.requestForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.requestForm select,
+.requestForm input[type="text"],
+.requestForm input[type="date"],
+.requestForm input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.requestForm h5 {
+    text-align: center;
+}
+
+
+.requestForm input[type="radio"] {
+    margin-right: 5px;
+}
+
+.requestForm button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.requestForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.requestForm ul {
+    list-style: none;
+    padding: 0;
+}
+
+.requestForm ul li {
+    color: red;
+    margin-bottom: 5px;
+} */
+
+/* ----------------------------------------------------------------- */
+
+.requestForm {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.requestForm h5 {
+    text-align: center;
+    margin: auto;
+}
+
+.requestForm .form-group {
+    margin-bottom: 15px;
+}
+
+.requestForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.requestForm select,
+.requestForm input[type="text"],
+.requestForm input[type="date"],
+.requestForm input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.requestForm input[type="radio"] {
+    margin-right: 5px;
+}
+
+.radio-group label {
+    display: inline-block; /* Change to inline-block */
+    margin-right: 30px; /* Increase margin for spacing */
+}
+
+.requestForm button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.requestForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.requestForm ul {
+    list-style: none;
+    padding: 0;
+}
+
+.requestForm ul li {
+    color: red;
+    margin-bottom: 5px;
+}

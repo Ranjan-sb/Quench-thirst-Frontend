@@ -4,6 +4,7 @@ import { startCreateRequest } from '../../actions/request-action';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2"
+import '../../requestForm.css'
 
 export default function RequestForm() {
     //const {user} = useAuth()
@@ -27,6 +28,8 @@ export default function RequestForm() {
             }
         })
     }
+
+    
 
     const dispatch = useDispatch()
 
@@ -67,6 +70,27 @@ export default function RequestForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // Frontend validation
+        const errors = {};
+        if (!formData.vehicleTypeId) {
+            errors.vehicleTypeId = 'Vehicle type is required';
+        }
+        if (!formData.orderType) {
+            errors.orderType = 'Order type is required';
+        }
+        if (!formData.quantity) {
+            errors.quantity = 'Quantity is required';
+        }
+        if (!formData.purpose) {
+            errors.purpose = 'Purpose is required';
+        }
+
+        // If there are errors, display them and prevent form submission
+        if (Object.keys(errors).length > 0) {
+            alert('Please fix the following errors:\n' + Object.values(errors).join('\n'));
+            return;
+        }
+
 
         const resetForm = () => {
             setFormData({
@@ -94,6 +118,10 @@ export default function RequestForm() {
 
     return (
         <>
+            <div className='offset-5'>
+            <h5><b>REQUEST FORM</b></h5>
+            </div>
+            
             {
                 serverErrors?.length > 0 && (
                     <div>
@@ -125,8 +153,10 @@ export default function RequestForm() {
                         )
                     })}
                     </select>
+                    {!formData.vehicleTypeId.trim() && <div style={{ color: 'red' }}>Vehicle type is required</div>}
 
-                    <div>
+
+                    <div className='radio-group'>
                         <label>Order Type : </label>{" "}
                         <label>
                             <input
@@ -149,6 +179,8 @@ export default function RequestForm() {
                             Advance
                         </label>
                     </div>
+                    {formData.orderType && !formData.orderType.trim() && <div style={{ color: 'red' }}>Order type is required</div>}
+
 
                     <div>
                         <label htmlFor="quantity">Quantity : </label>{" "}
@@ -162,6 +194,8 @@ export default function RequestForm() {
                             max={2}
                         />
                     </div>
+                    {!formData.quantity && <div style={{ color: 'red' }}>Quantity is required</div>}
+
                     {formData.orderType === 'immediate' ? (
                         <div>
                             <label>Order Date (Immediate) : </label>{" "}
@@ -197,6 +231,8 @@ export default function RequestForm() {
                         <option value="construction">Construction</option>
                         <option value="priority">Priority</option>
                     </select><br />
+                    {!formData.purpose && <div style={{ color: 'red' }}>Purpose is required</div>}
+
                     <button type="submit">Submit</button>
                 </div>
             </form>
