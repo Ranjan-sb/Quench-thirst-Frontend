@@ -54,6 +54,7 @@ export default function SupplierDetailsForm() {
     { name: 'Address Details', component: <AddressDetailsForm /> },
     { name: 'Bank Account Details', component: <BankAccountDetails /> }
   ];
+  
 
   return (
     <div>

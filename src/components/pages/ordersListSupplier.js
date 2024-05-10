@@ -154,11 +154,11 @@ export default function OrdersListForSupplier() {
                 <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
             ) : (
                 <>
-                    {renderTableByPurpose("priority")}
-                    {renderTableByPurpose("domestic")}
-                    {renderTableByPurpose("commercial")}
-                    {renderTableByPurpose("construction")}
-                </>
+                    {renderTableByPurpose("Priority")}
+                    {renderTableByPurpose("Domestic")}
+                    {renderTableByPurpose("Commercial")}
+                    {renderTableByPurpose("Construction")}
+                </> 
             )}
 
             <Modal isOpen={modal} toggle={toggle}>

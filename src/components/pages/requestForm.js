@@ -1,98 +1,59 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startCreateRequest } from '../../actions/request-action';
 import { VehicleTypeContext } from '../../context/VehicleTypeContext';
 import { useNavigate } from 'react-router-dom';
-import Swal from "sweetalert2"
-import '../../requestForm.css'
+import Swal from "sweetalert2";
+import '../../requestForm.css';
 
 export default function RequestForm() {
-    //const {user} = useAuth()
-    //const [radius, setRadius] = useState(10);
-    const { vehicleTypes } = useContext(VehicleTypeContext)
-    const serverErrors = useSelector((state) => {
-        return state.requests.serverErrors
-    })
+    const { vehicleTypes } = useContext(VehicleTypeContext);
+    const serverErrors = useSelector((state) => state.requests.serverErrors);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [formErrors, setFormErrors] = useState({})
 
-    const navigate = useNavigate()
+    const errors = {};
 
-    const sweetAlertFunc = () => {
-        Swal.fire({
-            title: "Request",
-            text: "Request Added Successful",
-            icon: "success",
-            confirmButtonText: "OK"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                navigate("/customer-dashboard")
-            }
-        })
-    }
-
-    
-
-    const dispatch = useDispatch()
-
-    // State variables to manage form data
-    const [formData, setFormData] = useState({
-        vehicleTypeId: '',
-        customerAddress: '',
-        orderType: 'immediate', // Default value set to 'immediate'
-        quantity: 0,
-        orderDate: new Date().toISOString().split('T')[0], // Set initial orderDate to today's date
-        purpose: ''
-    });
-
-    // Handler for input changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        // // If orderType is immediate, set orderDate to today's date
-        // if (name === 'orderType' && value === 'immediate') {
-        //     setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
-        // } else {
-        //     setFormData({ ...formData, [name]: value });
-        // }
-        if (name === 'orderType') {
-            // If orderType is immediate, set orderDate to today's date
-            if (value === 'immediate') {
-                setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
-            } else {
-                // If orderType is advance, set orderDate to a future date
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1); // Get tomorrow's date
-                const futureDate = tomorrow.toISOString().split('T')[0];
-                setFormData({ ...formData, orderType: value, orderDate: futureDate });
-            }
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Frontend validation
-        const errors = {};
-        if (!formData.vehicleTypeId) {
+    const validate = () => {
+        if (!formData.vehicleTypeId.trim()) {
             errors.vehicleTypeId = 'Vehicle type is required';
         }
-        if (!formData.orderType) {
+        if (!formData.orderType.trim()) {
             errors.orderType = 'Order type is required';
         }
         if (!formData.quantity) {
             errors.quantity = 'Quantity is required';
         }
-        if (!formData.purpose) {
+        if (!formData.purpose.trim()) {
             errors.purpose = 'Purpose is required';
         }
+    }
 
-        // If there are errors, display them and prevent form submission
-        if (Object.keys(errors).length > 0) {
-            alert('Please fix the following errors:\n' + Object.values(errors).join('\n'));
-            return;
-        }
+    // State variables to manage form data and submission status
+    const [formData, setFormData] = useState({
+        vehicleTypeId: '',
+        customerAddress: '',
+        orderType: 'immediate',
+        quantity: 0,
+        orderDate: new Date().toISOString().split('T')[0],
+        purpose: ''
+    });
+    const [submitted, setSubmitted] = useState(false);
+    validate()
+    // Handler for input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Mark the form as submitted
+        setSubmitted(true);
 
         const resetForm = () => {
+            // Reset form data after successful submission
             setFormData({
                 vehicleTypeId: '',
                 customerAddress: '',
@@ -100,41 +61,45 @@ export default function RequestForm() {
                 quantity: 0,
                 orderDate: new Date().toISOString().split('T')[0],
                 purpose: ''
-            })
+            });
         }
-        // Dispatch action to create request
-        dispatch(startCreateRequest(formData, resetForm));
 
-        sweetAlertFunc()
-        // Clear form fields after submission
-        setFormData({
-            vehicleTypeId: '',
-            orderType: '',
-            quantity: 0,
-            orderDate: '',
-            purpose: ''
-        })
-    }
+        // If there are errors, display them and prevent form submission
+        if (Object.keys(errors).length === 0) {
+            try {
+                // Dispatch action to create request
+                dispatch(startCreateRequest(formData, resetForm))
+
+                // Show success message
+                sweetAlertFunc();
+
+                // Navigate to dashboard
+                navigate("/customer-requests");
+
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            setFormErrors(errors)
+            alert('Please fix the following errors:\n' + Object.values(errors).join('\n'));
+            return
+        }
+    };
+
+    const sweetAlertFunc = () => {
+        Swal.fire({
+            title: "Request",
+            text: "Request Added Successful",
+            icon: "success",
+            confirmButtonText: "OK"
+        });
+    };
 
     return (
         <>
             <div className='offset-5'>
-            <h5><b>REQUEST FORM</b></h5>
+                <h5><b>REQUEST FORM</b></h5>
             </div>
-            
-            {
-                serverErrors?.length > 0 && (
-                    <div>
-                        These errors prohibited the form from being saved:
-                        <ul>
-                            {serverErrors.map((ele, i) => {
-                                return <li key={i}> {ele.msg}</li>
-                            })}
-                        </ul>
-                    </div>
-                )
-            }
-
             <form onSubmit={handleSubmit}>
                 <div className='requestForm'>
                     <label htmlFor="vehicleTypeId">Vehicle Type Name : </label>{" "}
@@ -144,17 +109,16 @@ export default function RequestForm() {
                         name='vehicleTypeId'
                         id='vehicleTypeId'
                     >
-                    <option value=''>Select VehicleType</option>
-                    {vehicleTypes.data.map((ele) => {
-                        return (
-                            <option
-                                key={ele._id}
-                                value={ele._id}>{ele.name}</option>
-                        )
-                    })}
+                        <option value=''>Select VehicleType</option>
+                        {vehicleTypes.data.map((ele) => {
+                            return (
+                                <option
+                                    key={ele._id}
+                                    value={ele._id}>{ele.name}</option>
+                            )
+                        })}
                     </select>
-                    {!formData.vehicleTypeId.trim() && <div style={{ color: 'red' }}>Vehicle type is required</div>}
-
+                    {submitted && formErrors.vehicleTypeId && <div style={{ color: 'red' }}>Vehicle type is required</div>}
 
                     <div className='radio-group'>
                         <label>Order Type : </label>{" "}
@@ -179,8 +143,7 @@ export default function RequestForm() {
                             Advance
                         </label>
                     </div>
-                    {formData.orderType && !formData.orderType.trim() && <div style={{ color: 'red' }}>Order type is required</div>}
-
+                    {submitted && formErrors.orderType && <div style={{ color: 'red' }}>Order type is required</div>}
 
                     <div>
                         <label htmlFor="quantity">Quantity : </label>{" "}
@@ -194,7 +157,7 @@ export default function RequestForm() {
                             max={2}
                         />
                     </div>
-                    {!formData.quantity && <div style={{ color: 'red' }}>Quantity is required</div>}
+                    {submitted && formErrors.quantity && <div style={{ color: 'red' }}>Quantity is required</div>}
 
                     {formData.orderType === 'immediate' ? (
                         <div>
@@ -226,17 +189,16 @@ export default function RequestForm() {
                         onChange={handleChange}
                     >
                         <option value="">Select Purpose</option>
-                        <option value="domestic">Domestic</option>
-                        <option value="commercial">Commercial</option>
-                        <option value="construction">Construction</option>
-                        <option value="priority">Priority</option>
+                        <option value="Domestic">Domestic</option>
+                        <option value="Commercial">Commercial</option>
+                        <option value="Construction">Construction</option>
+                        <option value="Priority">Priority</option>
                     </select><br />
-                    {!formData.purpose && <div style={{ color: 'red' }}>Purpose is required</div>}
+                    {submitted && formErrors.purpose && <div style={{ color: 'red' }}>Purpose is required</div>}
 
                     <button type="submit">Submit</button>
                 </div>
             </form>
         </>
-    )
-
+    );
 }

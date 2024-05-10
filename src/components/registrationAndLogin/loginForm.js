@@ -41,13 +41,13 @@ export default function LoginForm(props) {
             })
             if(userResponse.data.role === 'customer'){
                 dispatch(startGetRequests());
-                // dispatch(startGetCustomerOrders());
-                //navigate('/customer-dashboard')
+                dispatch(startGetCustomerOrders());
+                navigate('/customer-dashboard')
             }
             if(userResponse.data.role === 'supplier'){
                 dispatch(startGetMyRequests());
                 dispatch(startGetSupplierOrders());
-                //navigate('/supplier-dashboard')
+                navigate('/supplier-dashboard')
             }
             props.setLogin()
             handleLogin(userResponse.data)
