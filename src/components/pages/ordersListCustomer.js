@@ -109,12 +109,26 @@ export default function OrdersListForCustomer() {
                 </table>
             )}
             <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}>Token No : {(orders.data.find((ele)=>{
+                {/* <ModalHeader toggle={toggle}>Token No : {(orders.data.find((ele)=>{
                     return (
                         ele._id === id
                     )
-                }))?.tokenNumber}
+                }))?.tokenNumber}<br />
+                </ModalHeader> */}
+                <ModalHeader toggle={toggle}>
+                    Token No : {(orders.data.find((ele) => {
+                        return (
+                            ele._id === id
+                        )
+                    }))?.tokenNumber}
+                    <br />
+                    Current Token No: {(orders.data.find((ele) => {
+                        return (
+                            ele._id === id
+                        )
+                    }))?.currentTokenNumber}
                 </ModalHeader>
+
                 <ModalBody>
                     {orders.data.map((ele) => {
                         const formattedDate = new Date(ele.orderDate).toISOString().split('T')[0];

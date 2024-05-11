@@ -1,0 +1,125 @@
+/* .loginForm {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .loginForm h1 {
+    text-align: center;
+  }
+  
+  .loginForm form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .loginForm form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .loginForm form .form-label {
+    font-weight: bold;
+  }
+  
+  .loginForm form .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .loginForm form .error-message {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .loginForm form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .loginForm form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .loginForm form a {
+    text-align: center;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .loginForm form a:hover {
+    text-decoration: underline;
+  }
+   */
+
+
+   .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .spacer {
+    height: 50px; /* Adjust the height as needed */
+  }
+  
+  .loginForm {
+    width: 300px; /* Adjust the width of the form */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #0056b3;
+  }
+  
