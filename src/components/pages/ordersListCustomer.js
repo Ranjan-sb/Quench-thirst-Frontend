@@ -116,17 +116,44 @@ export default function OrdersListForCustomer() {
                 }))?.tokenNumber}<br />
                 </ModalHeader> */}
                 <ModalHeader toggle={toggle}>
-                    Token No : {(orders.data.find((ele) => {
-                        return (
-                            ele._id === id
-                        )
-                    }))?.tokenNumber}
-                    <br />
-                    Current Token No: {(orders.data.find((ele) => {
-                        return (
-                            ele._id === id
-                        )
-                    }))?.currentTokenNumber}
+                    {/* {order.data.map((ele)=>{
+                        if(ele.isFulfilled){
+                            return (
+                                <>
+                                    Token No : {(orders.data.find((ele) => {
+                                    return (
+                                        ele._id === id
+                                    )
+                                }))?.tokenNumber}
+                                <br />
+                                Current Token No: {(orders.data.find((ele) => {
+                                    return (
+                                        ele._id === id
+                                    )
+                                }))?.currentTokenNumber}
+                                </>
+                            )
+                        }
+                    })} */}
+                     {orders.data.map((ele) => {
+                        if (ele._id === id) {
+                            return (
+                                <div key={ele._id}>
+                                    {ele.isFulfilled ? (
+                                        <>
+                                            <p><b><i>Order is Already Fulfilled.</i></b></p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p><b><u><i>Token No:</i></u></b> {ele.tokenNumber}</p>
+                                            <p><b><u><i>Current Token No:</i></u></b> {ele.currentTokenNumber}</p>
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
                 </ModalHeader>
 
                 <ModalBody>

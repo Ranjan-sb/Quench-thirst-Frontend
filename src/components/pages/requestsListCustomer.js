@@ -5,26 +5,28 @@ import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 export default function RequestListForCustomer() {
     const [page, setPage]=useState(1)
-    const [limit, setLimit]=useState(5||10)
+    const [limit, setLimit]=useState(2||10)
     const [orderTypeSearch, setOrderTypeSearch]=useState('')
     const [purposeSearch, setPurposeSearch]=useState('')
+    const [id, setId] = useState('');
+    const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const requests = useSelector((state) => {
         return state.requests;
     });
+    console.log("requests----", requests)
 
-    const totalPages = useSelector((state) => state.requests.totalPages);
+    // const totalPages = useSelector((state) => state.requests.totalPages);
+    // console.log("totalPages-",totalPages)
 
     useEffect(()=>{
         setLoading(true)
         dispatch(startGetRequests(page,limit,orderTypeSearch,purposeSearch))  
-            .then(()=>setLoading(false))
-            .catch(()=>setLoading(false))   
     },[page,limit,orderTypeSearch,purposeSearch])
     
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         return () => {
@@ -32,12 +34,23 @@ export default function RequestListForCustomer() {
         };
     }, []);
 
-    const [id, setId] = useState('');
-    const [modal, setModal] = useState(false);
+
 
     const toggle = () => {
         setModal(!modal);
         dispatch(setServerErrors([]));
+    };
+
+    const handleNextPage = () => {
+        if (page < requests.totalPages) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
     };
 
     const handleRemove = (id) => {
@@ -46,7 +59,6 @@ export default function RequestListForCustomer() {
             dispatch(startRemoveRequest(id));
         }
     };
-
     
 
     return (
@@ -80,7 +92,7 @@ export default function RequestListForCustomer() {
             </div>
             {/* {requests.length===0 ? ( */}
             {/* {requests.data.length === 0  ? ( */}
-            {requests.data.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
+            {requests?.data.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
             
                 <p><b>THERE IS NO REQUEST DATA FOR THIS CUSTOMER TO DISPLAY</b></p>
             ) : (
@@ -130,15 +142,9 @@ export default function RequestListForCustomer() {
                 </table>
                     <nav aria-label="Page navigation example ">
                         <ul className="pagination d-flex justify-content-end">
-                            <li className="page-item">
-                                            <button 
-                                                className="page-link" 
-                                                onClick={() => {setPage(prev=>prev- 1)}} 
-                                                disabled={page <=1} 
-                                            >
-                                                Previous
-                                            </button>
-                                        </li>
+                            <li className={`page-item`}>
+                                <button className="page-link" onClick={handlePrevPage}>Previous</button>
+                            </li>
                                         {/* {[...Array(Math.ceil(requests.totalCount / limit)).keys()].map((num) => (
                                             <li key={num} className={`page-item ${page === num + 1 ? 'active' : ''}`}>
                                                 <button
@@ -149,15 +155,10 @@ export default function RequestListForCustomer() {
                                                 </button>
                                             </li>
                                         ))} */}
-                                        <li><b>{page}</b></li>
-                                        <li className="page-item">
-                                            <button 
-                                                className="page-link" 
-                                                onClick={() =>{setPage(prev=>prev+ 1)}}
-                                            >
-                                                Next
-                                            </button>
-                                        </li>
+                            <li className="page-item disabled"><span className="page-link">{page}</span></li>
+                            <li className={`page-item`}>
+                                <button className="page-link" onClick={handleNextPage} disabled={page===requests.totalPages}>Next</button>
+                            </li>
                         </ul>
                     </nav>
                 </>

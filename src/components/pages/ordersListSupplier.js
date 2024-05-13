@@ -166,8 +166,8 @@ export default function OrdersListForSupplier() {
                 <ModalBody>
                     <MapContainer center={suppliersCoordinate} zoom={13} style={{ height: "400px" }}>
                         <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                            attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
                         />
                         <Marker position={suppliersCoordinate} icon={supplierIcon}>
                             <Popup>

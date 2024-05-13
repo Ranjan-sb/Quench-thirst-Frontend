@@ -50,7 +50,7 @@ function App() {
         });
         handleLogin(response.data);
         if (response.data?.role === 'customer') {
-          dispatch(startGetRequests());
+          // dispatch(startGetRequests());
           dispatch(startGetCustomerOrders());
         }
         if (response.data?.role === 'supplier') {

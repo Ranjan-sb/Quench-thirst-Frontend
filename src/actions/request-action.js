@@ -67,7 +67,7 @@ export const startGetMyRequests = () => {
                 }
             })
             dispatch(setMyRequests(response.data))
-            console.log(response.data)
+            console.log("request123:",response.data)
         } catch(err) {
             alert(err.message)
             console.log(err.response.data.errors)

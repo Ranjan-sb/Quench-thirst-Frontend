@@ -1,12 +1,13 @@
 const initialState = {
     data: [],
+    totalPages:1,
     serverErrors: []
 }
 
 const requestsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_REQUESTS': {
-            return { ...state, data: action.payload }
+            return { ...state, data: action.payload.requests,totalPages: action.payload.totalPages }
         }
         case 'ADD_REQUEST': {
             return { ...state, data: [...state.data, action.payload] }
