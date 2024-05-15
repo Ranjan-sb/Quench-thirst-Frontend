@@ -147,7 +147,7 @@ export default function VehicleForm() {
                 {({ isSubmitting }) => (
                     <Form>
                         <div className='select-wrapper'>
-                            <label htmlFor="vehicleType">Vehicle Type</label>
+                            <label htmlFor="vehicleType" >Vehicle Type</label>
                             <Field as="select" name="vehicleTypeId">
                                 <option value="">Select Vehicle Type</option>
                                 {vehicleTypes.data.map((type) => (

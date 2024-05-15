@@ -6,6 +6,7 @@ import RequestForm from "../pages/requestForm";
 import Map from "../pages/location/map";
 import mapLocationReducer from '../../reducers/suppliersMap-reducer'
 import { MapLocationContext } from "../../context/MapContext";
+// import login from '../../img/login.jpg'
 
 export default function CustomerDashboard(){
 
@@ -32,6 +33,7 @@ export default function CustomerDashboard(){
       },[])
     
     return (
+      // <div className="customer-dashboard" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
         <div>
             <h3>Customer Dashboard</h3>
             <MapLocationContext.Provider value={{mapLocations, mapLocationDispatch}}>
@@ -41,5 +43,7 @@ export default function CustomerDashboard(){
                 </>    
             </MapLocationContext.Provider>
         </div>
+      // </div>
+        
     )
 }

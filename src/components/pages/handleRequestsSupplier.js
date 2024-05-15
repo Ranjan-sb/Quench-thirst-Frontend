@@ -4,6 +4,7 @@ import { setServerErrors } from "../../actions/request-action"
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startAcceptRequest,startRejectRequest } from "../../actions/request-action";
 import { useAuth } from "../../context/AuthContext";
+import login from '../../img/login.jpg'
 
 export default function HandleRequests() {
     const {user} = useAuth()
@@ -54,6 +55,7 @@ export default function HandleRequests() {
     
     return (
         <>
+            <div className="container mt-4" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} >
             <h3>Request Details</h3>
             {data.length === 0 ? (
                 <p><b>THERE IS NO REQUEST DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
@@ -129,6 +131,7 @@ export default function HandleRequests() {
                     </ul>
                 </ModalBody>
             </Modal>
+            </div>
         </>
     )
 }

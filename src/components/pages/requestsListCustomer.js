@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors, startGetRequests, startRemoveRequest } from "../../actions/request-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import tanker from '../../img/tanker.jpg'
 
 export default function RequestListForCustomer() {
     const [page, setPage]=useState(1)
@@ -63,7 +64,7 @@ export default function RequestListForCustomer() {
 
     return (
         <>
-            <div className="container mt-4">
+                <div className="container mt-4" style={{ backgroundImage: `url(${tanker})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} >
                 <h3>Request Details</h3>
                 <div className="row">
                     <div className="col-md-6">
@@ -189,6 +190,8 @@ export default function RequestListForCustomer() {
                     </ul>
                 </ModalBody>
             </Modal>
+
+              
         </>
     );
 }

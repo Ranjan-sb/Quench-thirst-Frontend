@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startGetCustomerOrders } from "../../actions/orders-action";
+import login from '../../img/login.jpg'
 
 export default function OrdersListForCustomer() {
     const orders = useSelector((state) => {
@@ -59,8 +60,10 @@ export default function OrdersListForCustomer() {
 
 
     return (
-        <>
-            <h3>Orders Details</h3>
+        <div className="customer-dashboard" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+            <>
+            <div>
+                <h3>Orders Details</h3>
             {orders.data.length === 0 ? (
                 <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS CUSTOMER</b></p>
             ) : (
@@ -185,6 +188,9 @@ export default function OrdersListForCustomer() {
                 </ModalBody>
 
             </Modal>
+            </div>
         </>
+        </div>
+        
     );
 }

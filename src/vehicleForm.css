@@ -7,6 +7,12 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
+    
+     /* background-image: url('././img/tipper.jpeg'); Apply the background image */
+    /* background-size: cover; Cover the entire container */
+    /* background-position: center; Center the background image */
+    /* background-repeat: no-repeat; Do not repeat the background image */
+    
   }
   
   .vehicle-form-container h2 {

@@ -170,7 +170,8 @@ export default function LoginForm(props) {
     }
 
     return (
-        <div className="login-container"> {/* Apply the login-container class */}
+        // <div className="login-container" style={{ backgroundColor: '#ADD8E6' }}> {/* Apply the blue background color */}
+        <div className="login-container"  style={{ backgroundColor: '#ADD8E6' }}> {/* Apply the login-container class */}
             <div className="spacer"></div> {/* Add a spacer div for space */}
             <div className="loginForm"> {/* Apply the loginForm class */}
                 <h1>Login</h1>
@@ -212,12 +213,13 @@ export default function LoginForm(props) {
                         </FormGroup><br />
 
                         <Button type="submit" className="login-button">Login</Button><br /><br /> {/* Apply the login-button class */}
-                        <Link to='/forgot-password'>Forgot Password?</Link><br /><br />
-                        <Link to='/register'>New User? Register here</Link>
+                        <Link to='/forgot-password' style={{ color: 'white' }}><b>Forgot Password?</b></Link><br /><br />
+                        <Link to='/register' style={{ color: 'white' }}><b>New User? Register here</b></Link>
                     </Form>
                 </Formik>
             </div>
         </div>
+        // </div>
     )
 
 }
