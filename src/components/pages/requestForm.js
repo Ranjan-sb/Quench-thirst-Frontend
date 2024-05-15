@@ -43,8 +43,27 @@ export default function RequestForm() {
     validate()
     // Handler for input changes
     const handleChange = (e) => {
+        // const { name, value } = e.target;
+        // setFormData({ ...formData, [name]: value });
+
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+
+        // If the field being changed is orderType
+        if (name === 'orderType') {
+            // If orderType is advance, set orderDate to the next day
+            if (value === 'advance') {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const nextDay = tomorrow.toISOString().split('T')[0];
+                setFormData({ ...formData, orderType: value, orderDate: nextDay });
+            } else {
+                // If orderType is immediate, set orderDate to today
+                setFormData({ ...formData, orderType: value, orderDate: new Date().toISOString().split('T')[0] });
+            }
+        } else {
+            // For other fields, update form data as usual
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleSubmit = (e) => {

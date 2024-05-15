@@ -113,7 +113,7 @@
 import { useState } from "react";
 import * as Yup from 'yup';
 import axios from 'axios'
-import '../../login.css' // Import the CSS file
+import '../../login.css' 
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -134,8 +134,12 @@ export default function LoginForm(props) {
 
     // Define the validation schema using Yup
     const loginValidationSchema = Yup.object().shape({
-        email: Yup.string().required('Email is required'),
-        password: Yup.string().required('Password is required'),
+        email: Yup.string()
+            .email('Invalid email Id')
+            .required('Email is required'),
+            
+        password: Yup.string()
+            .required('Password is required'),
     });
 
     const handleSubmit = async (values) => {
@@ -160,19 +164,24 @@ export default function LoginForm(props) {
             props.setLogin()
             handleLogin(userResponse.data)
             navigate('/login-success')
-            setServerErrors("")
+            setServerErrors([])
 
         } catch (error) {
             console.log(error)
             //setServerErrors(Array.isArray(error.response?.data?.error) ? error.response.data.error : [error.response.data.error]);
-            setServerErrors(error.response.data)
+            //setServerErrors(error.response.data)
+            setServerErrors(
+                Array.isArray(error.response?.data?.errors)
+                  ? error.response.data.errors.map((error) => error.msg)
+                  : [error.response.data.msg]
+            );
         }
     }
 
     return (
-        <div className="login-container"> {/* Apply the login-container class */}
-            <div className="spacer"></div> {/* Add a spacer div for space */}
-            <div className="loginForm"> {/* Apply the loginForm class */}
+        <div className="login-container"> 
+            <div className="spacer"></div> 
+            <div className="loginForm"> 
                 <h1>Login</h1>
                 <Formik
                     initialValues={initialValues}
@@ -187,10 +196,11 @@ export default function LoginForm(props) {
                                 ))}
                             </Alert>
                         )}
+                        
                         <FormGroup controlId="email" className="form-group"> 
                             <FormLabel className="form-label">Email : </FormLabel> 
                             <Field
-                                type="text"
+                                type="email"
                                 name="email"
                                 placeholder="Enter Email Id"
                                 as={FormControl}
