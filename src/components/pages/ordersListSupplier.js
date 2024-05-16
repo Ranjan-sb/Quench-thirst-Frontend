@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux"
@@ -23,6 +22,8 @@ import "leaflet-routing-machine";
 import '../../map.css'
 
 
+
+
 export default function OrdersListForSupplier() {
     const [selectedDate, setSelectedDate]= useState(null)
     const [suppliersCoordinate,setSuppliersCoordinate]=useState([])
@@ -39,6 +40,7 @@ export default function OrdersListForSupplier() {
         return (ele.customerId.location)
     })
     console.log("orders-details-cust_location-",orders_1)
+
 
     const dispatch = useDispatch()
 
@@ -159,6 +161,7 @@ export default function OrdersListForSupplier() {
                         <tbody>
                             {filteredOrders.map((ele) => {
                                 const formattedDate = ele.orderDate
+
                                 return (
                                     <tr key={ele._id}>
                                         <td>{formattedDate}</td>
@@ -176,15 +179,14 @@ export default function OrdersListForSupplier() {
                                                 setId(ele._id);
                                                 toggle();
                                             }}>Show</button>{' '}
-                                            {!ele.isFulfilled && (
-                                                <button onClick={()=>{
-                                                    handleIsFullFilled(ele._id)
-                                                }}>FulFilled</button>
-                                            )}
+                                            {!ele.isFulfilled && !orders.data.some(order => order.orderDate === ele.orderDate && order.isFulfilled) && (
+                                            <button onClick={() => handleIsFullFilled(ele._id)} disabled={!((ele.currentTokenNumber+1) === ele.tokenNumber)}>FulFilled</button>
+                                        )}
                                         </td>
                                     </tr>
                                 )
                             })}
+
                         </tbody>
                     </table>
 
@@ -269,6 +271,7 @@ export default function OrdersListForSupplier() {
                     </Modal>
                 </div>
             </div>
+
         </>
     )
 }
