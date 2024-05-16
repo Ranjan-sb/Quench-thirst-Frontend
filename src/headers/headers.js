@@ -3,14 +3,31 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../img/logo.png'
 
 
 const Header = ({ handleLogout, isAuthenticated }) => {
     const navigate = useNavigate()
     const { user } = useAuth()
     return (
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand as={Link} to="/login-success">QT APP</Navbar.Brand>
+        <Navbar bg="dark" variant="dark" expand="lg" >
+            {/* <Link to="/" className="link-style">
+              <img
+                alt="logo"
+                src={logo}
+                style={{
+                  height: 75,
+                  width: 75,
+                }}
+              />
+              &nbsp; Resortify
+            </Link> */}
+            <Navbar.Brand as={Link} to="/login-success">
+                <img src={logo} alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+                QT APP
+            </Navbar.Brand>
+             {/* <Navbar.Brand as={Link} to="/">QT APP</Navbar.Brand> */}
+
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

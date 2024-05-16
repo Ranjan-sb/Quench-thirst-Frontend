@@ -59,8 +59,8 @@ export default function Map(){
        <MapContainer
                     center={center} zoom={11} style={{ height: '400px' }}>
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                        attribution='&copy; <a href="https://www.google.com/maps">Google Maps</a> contributors'
                     />
 
                     {/* Circle representing the radius */}

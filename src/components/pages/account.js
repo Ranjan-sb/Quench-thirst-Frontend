@@ -6,7 +6,8 @@ import '../../Account.css'
 export default function Account() {
     const { user } = useAuth();
     const [suppliers, setSuppliers] = useState({});
-  
+    // const [backgroundImage, setBackgroundImage]=useState('')
+
     useEffect(() => {
       (async () => {
         const response = await axios.get(
@@ -20,6 +21,14 @@ export default function Account() {
         setSuppliers(response.data);
       })();
     }, []);
+
+    // useEffect(() => {
+    //     if (user && user.role === 'supplier') {
+    //         setBackgroundImage('")');
+    //     } else if (user && user.role === 'customer') {
+    //         setBackgroundImage('url("customer_background.jpg")');
+    //     }
+    // }, [user]);
   
     return (
       <div className="account-container"> {/* Apply a class for styling */}

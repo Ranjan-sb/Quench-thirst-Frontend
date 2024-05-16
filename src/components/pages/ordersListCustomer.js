@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startGetCustomerOrders } from "../../actions/orders-action";
+import login from '../../img/login.jpg'
 
 export default function OrdersListForCustomer() {
     const orders = useSelector((state) => {
@@ -59,8 +60,10 @@ export default function OrdersListForCustomer() {
 
 
     return (
-        <>
-            <h3>Orders Details</h3>
+        <div className="customer-dashboard" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+            <>
+            <div>
+                <h3>Orders Details</h3>
             {orders.data.length === 0 ? (
                 <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS CUSTOMER</b></p>
             ) : (
@@ -116,17 +119,44 @@ export default function OrdersListForCustomer() {
                 }))?.tokenNumber}<br />
                 </ModalHeader> */}
                 <ModalHeader toggle={toggle}>
-                    Token No : {(orders.data.find((ele) => {
-                        return (
-                            ele._id === id
-                        )
-                    }))?.tokenNumber}
-                    <br />
-                    Current Token No: {(orders.data.find((ele) => {
-                        return (
-                            ele._id === id
-                        )
-                    }))?.currentTokenNumber}
+                    {/* {order.data.map((ele)=>{
+                        if(ele.isFulfilled){
+                            return (
+                                <>
+                                    Token No : {(orders.data.find((ele) => {
+                                    return (
+                                        ele._id === id
+                                    )
+                                }))?.tokenNumber}
+                                <br />
+                                Current Token No: {(orders.data.find((ele) => {
+                                    return (
+                                        ele._id === id
+                                    )
+                                }))?.currentTokenNumber}
+                                </>
+                            )
+                        }
+                    })} */}
+                     {orders.data.map((ele) => {
+                        if (ele._id === id) {
+                            return (
+                                <div key={ele._id}>
+                                    {ele.isFulfilled ? (
+                                        <>
+                                            <p><b><i>Order is Already Fulfilled.</i></b></p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p><b><u><i>Token No:</i></u></b> {ele.tokenNumber}</p>
+                                            <p><b><u><i>Current Token No:</i></u></b> {ele.currentTokenNumber}</p>
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
                 </ModalHeader>
 
                 <ModalBody>
@@ -158,6 +188,9 @@ export default function OrdersListForCustomer() {
                 </ModalBody>
 
             </Modal>
+            </div>
         </>
+        </div>
+        
     );
 }
