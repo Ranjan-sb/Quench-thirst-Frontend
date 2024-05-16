@@ -29,6 +29,8 @@ import OrdersListForSupplier from './components/pages/ordersListSupplier';
 import CustomerDashboard from './components/dashboard/customerDashboard';
 import AdminDashboard from './components/dashboard/adminDashboard';
 import './style.css'
+import CustomerPreviousOrders from './components/pages/customerPreviousOrders';
+import SupplierPreviousOrders from './components/pages/supplierPreviousOrders';
 
 function App() {
   const dispatch = useDispatch();
@@ -109,6 +111,8 @@ function App() {
           <Route path="/failure" element={<Failure />} />
           <Route path="/customer-requests" element={<RequestListForCustomer />} />
           <Route path='/customer-orders' element={<OrdersListForCustomer />} />
+          <Route path='/customerPrevious-orders' element={<CustomerPreviousOrders />} />
+          <Route path='/supplierPrevious-orders' element={<SupplierPreviousOrders />} />
           <Route path='/supplier-requests' element={<HandleRequests />} />
           <Route path="/supplier-orders" element={<OrdersListForSupplier />} />
          </Routes>

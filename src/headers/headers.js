@@ -49,6 +49,7 @@ const Header = ({ handleLogout, isAuthenticated }) => {
                             {user?.role === 'customer' && (
                                 <>
                                     <Nav.Link as={Link} to="/customer-requests">Requests Details</Nav.Link>
+                                    <Nav.Link as={Link} to="/customerPrevious-orders">PreviousOrders</Nav.Link>
                                     <Nav.Link as={Link} to="/customer-orders">Orders Details</Nav.Link>
                                     <Nav.Link as={Link} to="/customer-dashboard">Home</Nav.Link>
                                 </>
@@ -56,6 +57,7 @@ const Header = ({ handleLogout, isAuthenticated }) => {
                             {user?.role === 'supplier' && (
                                 <>
                                     <Nav.Link as={Link} to="/supplier-requests">Requests</Nav.Link>
+                                    <Nav.Link as={Link} to="/supplierPrevious-orders">PreviousOrders</Nav.Link>
                                     <Nav.Link as={Link} to="/supplier-orders">Orders</Nav.Link>
                                     <Nav.Link as={Link} to='/supplier-dashboard'>Home</Nav.Link>
                                 </>
