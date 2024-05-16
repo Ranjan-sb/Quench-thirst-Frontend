@@ -93,7 +93,7 @@ export default function RequestListForCustomer() {
             </div>
             {/* {requests.length===0 ? ( */}
             {/* {requests.data.length === 0  ? ( */}
-            {requests?.data.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
+            {requests?.data?.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
             
                 <p><b>THERE IS NO REQUEST DATA FOR THIS CUSTOMER TO DISPLAY</b></p>
             ) : (
@@ -147,7 +147,7 @@ export default function RequestListForCustomer() {
                                 <button className="page-link" onClick={handlePrevPage}>Previous</button>
                             </li>
                                         {/* {[...Array(Math.ceil(requests.totalCount / limit)).keys()].map((num) => (
-                                            <li key={num} className={`page-item ${page === num + 1 ? 'active' : ''}`}>
+                                            <li key={num} className={page-item ${page === num + 1 ? 'active' : ''}}>
                                                 <button
                                                     className="page-link"
                                                     onClick={() => setPage(num + 1)}
