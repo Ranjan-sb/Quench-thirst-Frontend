@@ -27,6 +27,9 @@ import '../../map.css'
 export default function OrdersListForSupplier() {
     const [selectedDate, setSelectedDate]= useState(null)
     const [suppliersCoordinate,setSuppliersCoordinate]=useState([])
+    const [id, setId] = useState('')
+    const [modal, setModal] = useState(false);
+
 
     const {user}=useAuth()
     console.log("know_user-", user)
@@ -44,9 +47,7 @@ export default function OrdersListForSupplier() {
 
     const dispatch = useDispatch()
 
-    const [id, setId] = useState('')
-    const [modal, setModal] = useState(false);
-
+    
     const toggle = () => {
         setModal(!modal)
         dispatch(setServerErrors([]))
@@ -62,11 +63,24 @@ export default function OrdersListForSupplier() {
         iconSize: [30, 30],
     })
 
+    function reverseLatLon(arr) {
+        return [arr[1], arr[0]]
+      }  
+
+    // const customerCoord=orders.data.map((orderDetails) => {
+    //     console.log("Customer Location Coordinates:", reverseLatLon(orderDetails.customerId.location.coordinates));
+    //     return reverseLatLon(orderDetails.customerId.location.coordinates)
+    // })
+
     const createRoutineMachineLayer = () => {
+        const cr= orders.data.find((ele)=>{
+            return ele._id==id
+        }).customerId?.location?.coordinates.reverse()
+        console.log("coooooo--",cr)
         const instance = L.Routing.control({
           waypoints: [
             L.latLng(suppliersCoordinate),
-            L.latLng(reverseLatLon(orders.data[0].customerId.location.coordinates))
+            L.latLng(cr)
           ],
           lineOptions: {
             styles: [{ color: "red", weight: 4 }]
@@ -85,12 +99,10 @@ export default function OrdersListForSupplier() {
         return instance;
       };
 
+    
     const RoutingMachine = createControlComponent(createRoutineMachineLayer);
 
-    function reverseLatLon(arr) {
-        return [arr[1], arr[0]]
-      }  
-
+    
     useEffect(()=>{
         (async()=>{
             try{
@@ -218,7 +230,7 @@ export default function OrdersListForSupplier() {
 
                                 {/* Markers for customer locations */}
 
-                                <LayerGroup>
+                                {/* <LayerGroup>
                                     {orders.data.map((orderDetails) => {
                                         console.log("Customer Location Coordinates:", reverseLatLon(orderDetails.customerId.location.coordinates));
                                         return (
@@ -234,7 +246,23 @@ export default function OrdersListForSupplier() {
                                         );
                                     })}
                                 </LayerGroup>
-                                
+                                 */}
+                                 <LayerGroup>
+                                    {id && orders.data
+                                        .filter(order => order._id === id) // Filter to find the order matching the current id
+                                        .map(orderDetails => (
+                                            <Marker 
+                                                key={orderDetails._id} 
+                                                position={reverseLatLon(orderDetails.customerId.location.coordinates)}
+                                                icon={customMarker}
+                                            >
+                                                <Popup>
+                                                    Customer's location
+                                                </Popup>
+                                            </Marker>
+                                        ))}
+                                </LayerGroup>
+
 
                             </MapContainer>
 
