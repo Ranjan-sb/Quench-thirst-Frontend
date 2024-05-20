@@ -79,7 +79,7 @@ export default function OrdersListForSupplier() {
 
     const createRoutineMachineLayer = () => {
         const cr= orders.data.find((ele)=>{
-            return ele._id==id
+            return ele._id===id
         }).customerId?.location?.coordinates.reverse()
         console.log("coooooo--",cr)
         const instance = L.Routing.control({
