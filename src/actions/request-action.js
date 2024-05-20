@@ -4,7 +4,6 @@ export const startGetRequests = (page, limit, orderTypeSearch, purposeSearch) =>
     return async (dispatch) => {
         try {
             const response = await axios.get(`http://localhost:3100/api/requests?page=${page?page:1}&&limit=${limit?limit:5}&&orderTypeSearch=${orderTypeSearch?orderTypeSearch:''}&&purposeSearch=${purposeSearch?purposeSearch:''}`,{
-            // const response = await axios.get('http://localhost:3100/api/requests',{
                 headers : {
                     Authorization : localStorage.getItem('token')
                 }
@@ -58,10 +57,10 @@ const addRequest = (request) => {
     }
 }
 
-export const startGetMyRequests = () => { 
+export const startGetMyRequests = (page, limit, orderTypeSearch, purposeSearch) => { 
     return async (dispatch) => {
         try {
-            const response = await axios.get('http://localhost:3100/api/requests/suppliers/my',{
+            const response = await axios.get(`http://localhost:3100/api/requests/suppliers/my?page=${page?page:1}&&limit=${limit?limit:5}&&orderTypeSearch=${orderTypeSearch?orderTypeSearch:''}&&purposeSearch=${purposeSearch?purposeSearch:''}`,{
                 headers : {
                     Authorization : localStorage.getItem('token')
                 }

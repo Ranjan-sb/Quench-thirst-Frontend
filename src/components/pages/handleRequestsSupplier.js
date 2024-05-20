@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setServerErrors } from "../../actions/request-action"
+import { setServerErrors, startGetMyRequests } from "../../actions/request-action"
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { startAcceptRequest,startRejectRequest } from "../../actions/request-action";
 import { useAuth } from "../../context/AuthContext";
 import login from '../../img/login.jpg'
 
 export default function HandleRequests() {
+    const [page, setPage]=useState(1)
+    const [limit, setLimit]=useState(5||10)
+    const [orderTypeSearch, setOrderTypeSearch]=useState('')
+    const [purposeSearch, setPurposeSearch]=useState('')
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
+
     const {user} = useAuth()
 
     const requests = useSelector((state) => {
         return state.requests
     })
-    console.log("daata-",requests.data)
-    const dispatch = useDispatch()
+    console.log("data...-",requests.data)
+    
+    useEffect(()=>{
+        setLoading(true)
+        dispatch(startGetMyRequests(page,limit,orderTypeSearch,purposeSearch))  
+    },[page,limit,orderTypeSearch,purposeSearch])
 
     useEffect(() => {
         return () => {
@@ -28,6 +39,18 @@ export default function HandleRequests() {
         setModal(!modal)
         dispatch(setServerErrors([]))
     }
+
+    const handleNextPage = () => {
+        if (page < requests.totalPages) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
 
     const handleAccept = (id) => {
         dispatch(startAcceptRequest(id))
@@ -50,17 +73,45 @@ export default function HandleRequests() {
             }
         }
     })
-
-    console.log(data, 'data-after-filter')
+    // console.log(data, 'data-after-filter')
     
     return (
         <>
             <div className="container mt-4" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} >
             <h3>Request Details</h3>
-            {data.length === 0 ? (
+            {/* {data.length === 0 ? ( */}
+            <div className="row">
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label><b>Order-Type:</b></label>
+                            <input
+                                type="text" 
+                                className="form-control"
+                                value={orderTypeSearch} 
+                                onChange={(e)=>setOrderTypeSearch(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label><b>Purpose:</b></label>
+                            <input
+                                type='text' 
+                                className="form-control"
+                                value={purposeSearch}
+                                onChange={(e)=>setPurposeSearch(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* {requests.length===0 ? ( */}
+            {/* {requests.data.length === 0  ? ( */}
+            {requests?.data?.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.toLowerCase().includes(orderTypeSearch.toLowerCase())) && (!purposeSearch || request.purpose.toLowerCase().includes(purposeSearch.toLowerCase()))).length === 0 ? (
                 <p><b>THERE IS NO REQUEST DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
             ) : (
-                <table className="table">
+                <>
+                    <table className="table">
                     <thead>
                         <tr>
                             <th>vehicleType</th>
@@ -101,6 +152,18 @@ export default function HandleRequests() {
                             })}
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation example ">
+                        <ul className="pagination d-flex justify-content-end">
+                            <li className={`page-item`}>
+                                <button className="page-link" onClick={handlePrevPage}>Previous</button>
+                            </li>
+                            <li className="page-item disabled"><span className="page-link">{page}</span></li>
+                            <li className={`page-item`}>
+                                <button className="page-link" onClick={handleNextPage} disabled={page===requests.totalPages}>Next</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </>
             )}
 
             <Modal isOpen={modal} toggle={toggle}>
@@ -131,7 +194,7 @@ export default function HandleRequests() {
                     </ul>
                 </ModalBody>
             </Modal>
-            </div>
+            
         </>
     )
 }
