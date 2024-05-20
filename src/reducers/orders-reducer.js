@@ -1,7 +1,8 @@
-import { array } from "yup"
+// import { array } from "yup"
 
 const initialState = {
     data: [],
+    totalPages:1,
     serverErrors: []
 }
 
@@ -11,7 +12,7 @@ const ordersReducer = (state = initialState, action) => {
             return { ...state, data: action.payload }
         }
         case 'SET_SUPPLIER_ORDERS': {
-            return { ...state, data: action.payload }
+            return { ...state, data:action.payload.orders, totalPages:action.payload.totalPages}
         }
 
         case 'SET_ERRORS': {

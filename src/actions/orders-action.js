@@ -29,10 +29,10 @@ export const setServerErrors = (errors) => {
     }
 }
 
-export const startGetSupplierOrders = () => { 
+export const startGetSupplierOrders = (page, limit) => { 
     return async (dispatch) => {
         try {
-            const response = await axios.get('http://localhost:3100/api/orders/supplier',{
+            const response = await axios.get(`http://localhost:3100/api/orders/supplier?page=${page?page:1}&&limit=${limit?limit:5}`,{
                 headers : {
                     Authorization : localStorage.getItem('token')
                 }

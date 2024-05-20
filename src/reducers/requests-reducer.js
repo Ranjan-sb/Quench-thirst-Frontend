@@ -16,7 +16,7 @@ const requestsReducer = (state = initialState, action) => {
             return { ...state, serverErrors: action.payload }
         }
         case 'SET_MY_REQUESTS': {
-            return { ...state, data: action.payload }
+            return { ...state, data: action.payload.requests, totalPages: action.payload.totalPages }
         }
         case 'REMOVE_REQUEST': {
             return { ...state, data: state.data.filter(ele => ele._id !== action.payload._id) }

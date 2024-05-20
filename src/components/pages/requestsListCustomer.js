@@ -6,7 +6,7 @@ import tanker from '../../img/tanker.jpg'
 
 export default function RequestListForCustomer() {
     const [page, setPage]=useState(1)
-    const [limit, setLimit]=useState(2||10)
+    const [limit, setLimit]=useState(5||10)
     const [orderTypeSearch, setOrderTypeSearch]=useState('')
     const [purposeSearch, setPurposeSearch]=useState('')
     const [id, setId] = useState('');
@@ -17,7 +17,7 @@ export default function RequestListForCustomer() {
     const requests = useSelector((state) => {
         return state.requests;
     });
-    console.log("requests----", requests)
+    console.log("requests111----", requests)
 
     // const totalPages = useSelector((state) => state.requests.totalPages);
     // console.log("totalPages-",totalPages)
@@ -93,7 +93,7 @@ export default function RequestListForCustomer() {
             </div>
             {/* {requests.length===0 ? ( */}
             {/* {requests.data.length === 0  ? ( */}
-            {requests?.data?.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.includes(orderTypeSearch)) && (!purposeSearch || request.purpose.includes(purposeSearch))).length === 0 ? (
+            {requests?.data?.filter((request) => request.status === 'pending' && (!orderTypeSearch || request.orderType.toLowerCase().includes(orderTypeSearch.toLowerCase())) && (!purposeSearch || request.purpose.toLowerCase().includes(purposeSearch.toLowerCase()))).length === 0 ? (
             
                 <p><b>THERE IS NO REQUEST DATA FOR THIS CUSTOMER TO DISPLAY</b></p>
             ) : (
@@ -146,16 +146,6 @@ export default function RequestListForCustomer() {
                             <li className={`page-item`}>
                                 <button className="page-link" onClick={handlePrevPage}>Previous</button>
                             </li>
-                                        {/* {[...Array(Math.ceil(requests.totalCount / limit)).keys()].map((num) => (
-                                            <li key={num} className={page-item ${page === num + 1 ? 'active' : ''}}>
-                                                <button
-                                                    className="page-link"
-                                                    onClick={() => setPage(num + 1)}
-                                                >
-                                                    {num + 1}
-                                                </button>
-                                            </li>
-                                        ))} */}
                             <li className="page-item disabled"><span className="page-link">{page}</span></li>
                             <li className={`page-item`}>
                                 <button className="page-link" onClick={handleNextPage} disabled={page===requests.totalPages}>Next</button>

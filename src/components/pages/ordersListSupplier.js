@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux"
-import { setServerErrors } from "../../actions/orders-action";
+import { setServerErrors, startGetSupplierOrders } from "../../actions/orders-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { MapContainer, TileLayer, Marker, Popup, LayerGroup, Polyline } from 'react-leaflet'
 import { useAuth } from "../../context/AuthContext";
@@ -13,23 +13,20 @@ import pin from '../../img/pin.png'
 import user1 from '../../img/user1.png'
 import { startUpdateOrder } from "../../actions/orders-action";
 import water2 from '../../img/water2.jpg'
-
-// import RoutingMachine from './routing'
-
 import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 import '../../map.css'
 
-
-
-
 export default function OrdersListForSupplier() {
     const [selectedDate, setSelectedDate]= useState(null)
     const [suppliersCoordinate,setSuppliersCoordinate]=useState([])
+    const [page, setPage]=useState(1)
+    const [limit, setLimit]=useState(5||10)
+    const [loading, setLoading] = useState(false);
     const [id, setId] = useState('')
     const [modal, setModal] = useState(false);
-
+    const dispatch = useDispatch()
 
     const {user}=useAuth()
     console.log("know_user-", user)
@@ -44,9 +41,10 @@ export default function OrdersListForSupplier() {
     })
     console.log("orders-details-cust_location-",orders_1)
 
-
-    const dispatch = useDispatch()
-
+    useEffect(()=>{
+        setLoading(true)
+        dispatch(startGetSupplierOrders(page,limit))  
+    },[page,limit])  
     
     const toggle = () => {
         setModal(!modal)
@@ -63,14 +61,21 @@ export default function OrdersListForSupplier() {
         iconSize: [30, 30],
     })
 
+    const handleNextPage = () => {
+        if (page < orders.totalPages) {
+            setPage(page + 1);
+        }
+    };
+
+    const handlePrevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
+
     function reverseLatLon(arr) {
         return [arr[1], arr[0]]
       }  
-
-    // const customerCoord=orders.data.map((orderDetails) => {
-    //     console.log("Customer Location Coordinates:", reverseLatLon(orderDetails.customerId.location.coordinates));
-    //     return reverseLatLon(orderDetails.customerId.location.coordinates)
-    // })
 
     const createRoutineMachineLayer = () => {
         const cr= orders.data.find((ele)=>{
@@ -141,6 +146,7 @@ export default function OrdersListForSupplier() {
         }
     }, [])       
 
+  
     const handleIsFullFilled = (orderId) => {
         dispatch(startUpdateOrder(orderId))
     }
@@ -158,7 +164,8 @@ export default function OrdersListForSupplier() {
                     {filteredOrders.length === 0 ? (
                         <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS SUPPLIER</b></p>
                     ) : (
-                        <table className="table">
+                        <>
+                            <table className="table">
                         <thead>
                             <tr>
                                 <th>orderDate</th>
@@ -201,7 +208,19 @@ export default function OrdersListForSupplier() {
 
                         </tbody>
                     </table>
-
+                    <nav aria-label="Page navigation example ">
+                        <ul className="pagination d-flex justify-content-end">
+                            <li className={`page-item`}>
+                                <button className="page-link" onClick={handlePrevPage} disabled={page === 1}>Previous</button>
+                            </li>
+                            <li className="page-item disabled"><span className="page-link">{page}</span></li>
+                            <li className={`page-item `}>
+                                <button className="page-link" onClick={handleNextPage} disabled={page===orders.totalPages}>Next</button>
+                            </li>
+                        </ul>
+                    </nav>
+                    </>
+                    
 
                     )}
 
@@ -227,26 +246,6 @@ export default function OrdersListForSupplier() {
                                         You are here
                                     </Popup>
                                 </Marker>
-
-                                {/* Markers for customer locations */}
-
-                                {/* <LayerGroup>
-                                    {orders.data.map((orderDetails) => {
-                                        console.log("Customer Location Coordinates:", reverseLatLon(orderDetails.customerId.location.coordinates));
-                                        return (
-                                            <Marker 
-                                                key={orderDetails._id} 
-                                                position={reverseLatLon(orderDetails.customerId.location.coordinates)}
-                                                icon={customMarker}
-                                            >
-                                                <Popup>
-                                                    Customer's location
-                                                </Popup>
-                                            </Marker>
-                                        );
-                                    })}
-                                </LayerGroup>
-                                 */}
                                  <LayerGroup>
                                     {id && orders.data
                                         .filter(order => order._id === id) // Filter to find the order matching the current id
