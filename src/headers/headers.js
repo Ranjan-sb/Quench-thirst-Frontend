@@ -62,9 +62,6 @@ const Header = ({ handleLogout, isAuthenticated }) => {
                                     <Nav.Link as={Link} to='/supplier-dashboard'>Home</Nav.Link>
                                 </>
                             )}
-                            {/* <Nav.Link as={Link} to='/' onClick={()=>{
-                                handleLogout()
-                            }}>Logout</Nav.Link>   */}
                             <NavDropdown title="More" id="basic-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/account">Profile</NavDropdown.Item>
                                 {/* <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item> */}

@@ -3,7 +3,7 @@ import axios from "axios"
 import VehicleForm from "../pages/vehicleForm";
 import SupplierDetailsForm from "../pages/multiStepForm/supplierDetailsForm";
 import VehicleTable from "../pages/vehicleTable"
-import water2 from '../../img/water2.jpg'
+//import img from "../../img/truck.jpeg"
 
 export default function SupplierDashboard(){
     const [supplierData,setSupplierData] = useState([])
@@ -28,8 +28,8 @@ export default function SupplierDashboard(){
     },[])
 
     return (
-        <div style={{ backgroundImage: `url(${water2})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
-            <h3>Supplier Dashboard</h3>
+        
+        <div style={{backgroundColor : "#d3d3d3",width: "100vw",height: "100vh"}}>   
             {loading ? (
                 <p>Loading...</p>
             ) : supplierData ? (

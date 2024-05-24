@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setServerErrors, startGetRequests, startRemoveRequest } from "../../actions/request-action";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import tanker from '../../img/tanker.jpg'
+
 
 export default function RequestListForCustomer() {
     const [page, setPage]=useState(1)
@@ -19,8 +19,7 @@ export default function RequestListForCustomer() {
     });
     console.log("requests111----", requests)
 
-    // const totalPages = useSelector((state) => state.requests.totalPages);
-    // console.log("totalPages-",totalPages)
+    
 
     useEffect(()=>{
         setLoading(true)
@@ -64,8 +63,9 @@ export default function RequestListForCustomer() {
 
     return (
         <>
-                <div className="container mt-4" style={{ backgroundImage: `url(${tanker})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} >
-                <h3>Request Details</h3>
+            <div className="container mt-4" style={{ backgroundColor : "lightblue" }}>
+                <div  >
+                <h3><b><u><i>REQUEST DETAILS</i></u></b></h3>
                 <div className="row">
                     <div className="col-md-6">
                         <div className="form-group">
@@ -179,7 +179,8 @@ export default function RequestListForCustomer() {
                         )}
                     </ul>
                 </ModalBody>
-            </Modal>
+            </Modal></div>
+                
 
               
         </>

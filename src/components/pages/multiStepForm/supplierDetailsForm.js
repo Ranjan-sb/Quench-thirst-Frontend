@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AddressDetailsForm from './addressDetails';
 import BankAccountDetails from './bankDetails';
+import formImg from "../../../img/formImage.jpg"
 
 export default function SupplierDetailsForm() {
   const [serverErrors, setServerErrors] = useState([]);
@@ -42,14 +43,6 @@ export default function SupplierDetailsForm() {
     }
   };
 
-  // const helperFunction = (name) => {
-  //   return serverErrors
-  //     .filter((ele) => ele.path === name)
-  //     .map((ele, i) => {
-  //       return <li key={i}>{ele.msg}</li>;
-  //     });
-  // };
-
   const steps = [
     { name: 'Address Details', component: <AddressDetailsForm /> },
     { name: 'Bank Account Details', component: <BankAccountDetails /> }
@@ -57,7 +50,7 @@ export default function SupplierDetailsForm() {
   
 
   return (
-    <div>
+    <div style={{backgroundImage : `url(${formImg})`, backgroundSize : "cover" , backgroundRepeat : "no-repeat", backgroundPosition : "center"}}>
       <h2>Suppliers Details Form :</h2>
       <Formik
         initialValues={initialValues}

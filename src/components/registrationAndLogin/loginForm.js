@@ -224,8 +224,8 @@ export default function LoginForm(props) {
                         </FormGroup><br />
 
                         <Button type="submit" className="login-button">Login</Button><br /><br /> {/* Apply the login-button class */}
-                        <Link to='/forgot-password' style={{ color: 'white' }}><b>Forgot Password?</b></Link><br /><br />
-                        <Link to='/register' style={{ color: 'white' }}><b>New User? Register here</b></Link>
+                        <Link to='/forgot-password' style={{ color: 'black' }}><b>Forgot Password?</b></Link><br /><br />
+                        <Link to='/register' style={{ color: 'black' }}><b>New User? Register here</b></Link>
                     </Form>
                 </Formik>
             </div>

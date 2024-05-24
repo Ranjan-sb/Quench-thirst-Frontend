@@ -29,7 +29,7 @@ export default function VehicleTable() {
 
     return (
         <>
-            <h4>Vehicle Details : </h4>
+            <h4><b>VEHICLE DETAILS : </b></h4>
             {vehicles.length === 0 ? (
                 <p><b>No vehicle details to display. Please add vehicle details.</b></p>
             ) : (

@@ -60,10 +60,21 @@ export default function OrdersListForCustomer() {
 
 
     return (
-        <div className="customer-dashboard" style={{ backgroundImage: `url(${login})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
-            <>
-            <div>
-                <h3>Orders Details</h3>
+        <div
+        className="customer-dashboard"
+        style={{
+            backgroundImage: `url(${login})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '20px',
+            color: 'black'
+        }}
+    >
+            <h3><b><i>ORDER DETAILS</i></b></h3>
             {orders.data.length === 0 ? (
                 <p><b>THERE IS NO ORDERS DATA TO DISPLAY FOR THIS CUSTOMER</b></p>
             ) : (
@@ -112,32 +123,8 @@ export default function OrdersListForCustomer() {
                 </table>
             )}
             <Modal isOpen={modal} toggle={toggle}>
-                {/* <ModalHeader toggle={toggle}>Token No : {(orders.data.find((ele)=>{
-                    return (
-                        ele._id === id
-                    )
-                }))?.tokenNumber}<br />
-                </ModalHeader> */}
+                
                 <ModalHeader toggle={toggle}>
-                    {/* {order.data.map((ele)=>{
-                        if(ele.isFulfilled){
-                            return (
-                                <>
-                                    Token No : {(orders.data.find((ele) => {
-                                    return (
-                                        ele._id === id
-                                    )
-                                }))?.tokenNumber}
-                                <br />
-                                Current Token No: {(orders.data.find((ele) => {
-                                    return (
-                                        ele._id === id
-                                    )
-                                }))?.currentTokenNumber}
-                                </>
-                            )
-                        }
-                    })} */}
                      {orders.data.map((ele) => {
                         if (ele._id === id) {
                             return (
@@ -188,9 +175,6 @@ export default function OrdersListForCustomer() {
                 </ModalBody>
 
             </Modal>
-            </div>
-        </>
-        </div>
-        
+        </div>  
     );
 }
