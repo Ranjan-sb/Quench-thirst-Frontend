@@ -4,7 +4,7 @@ import '../../card.css'
 
 const Card = ({ vehicle, vehicleTypes, onDelete }) => {
     console.log("veh:",vehicle)
-    const vehicleType = vehicleTypes.find(type => type._id === vehicle.vehicleTypeId._id);
+    const vehicleType = vehicleTypes.find(type => type._id === vehicle?.vehicleTypeId?._id);
     const typeName = vehicleType ? vehicleType.name : 'Unknown';
 
     const handleDelete = async () => {

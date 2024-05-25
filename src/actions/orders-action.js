@@ -7,7 +7,6 @@ export const startGetCustomerOrders = () => {
                     Authorization : localStorage.getItem('token')
                 }
             })
-            //console.log(response.data)
             dispatch(setCustomerOrders(response.data))
         } catch(err) {
             alert(err.message)
@@ -37,7 +36,6 @@ export const startGetSupplierOrders = (page, limit) => {
                     Authorization : localStorage.getItem('token')
                 }
             })
-            //console.log(response.data)
             dispatch(setSupplierOrders(response.data))
         } catch(err) {
             alert(err.message)

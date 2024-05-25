@@ -44,7 +44,6 @@ export const startCreateRequest = (formData,resetForm) => {
             dispatch(setServerErrors([]))
             resetForm()
         } catch(err) {
-            console.log(err.response.data.errors)
             dispatch(setServerErrors(err.response.data.errors))
         }
     }
@@ -65,8 +64,8 @@ export const startGetMyRequests = (page, limit, orderTypeSearch, purposeSearch) 
                     Authorization : localStorage.getItem('token')
                 }
             })
+            console.log("startGetMyReqs",response.data)
             dispatch(setMyRequests(response.data))
-            console.log("request123:",response.data)
         } catch(err) {
             alert(err.message)
             console.log(err.response.data.errors)
@@ -89,6 +88,7 @@ export const startRemoveRequest = (id) => {
                     Authorization : localStorage.getItem('token')
                 }
             })
+            console.log("startRemoveRequest", response.data)
             dispatch(removeRequest(response.data))
         } catch(err) {
             alert(err.message)
