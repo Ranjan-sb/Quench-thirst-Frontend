@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { startRemoveVehicleType, startGetVehicleTypes } from "../../actions/vehicleType-action";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+//abcd
 
 export default function ShowPriceDetails() {
   const { vehicleTypes } = useContext(VehicleTypeContext);
